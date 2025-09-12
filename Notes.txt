@@ -1,0 +1,37 @@
+
+Install NodeJS (if haven't)
+
+This project is currently using NodeJS Version V22.19.0 
+
+------
+
+Setup tutorial link here (2025):
+
+https://www.youtube.com/watch?v=7pbQ4ZKPBiU [Vector M:] (How to Install Node JS ✅ | Updated (2025))
+
+___________________________
+
+
+Initialize a new Expo project using the following command:
+
+npx create-expo-app@latest ./
+
+'./' informs the command to create the project within the current repository.
+
+___________________________
+
+
+Install the Expo Go which will be the development environment for mobile app.
+
+- Go to the Expo documentation
+
+- Go to the 'Set up your environment' section
+
+- Follow the steps there
+
+	* Android device
+	* Expo Go
+
+-  Ensure that the Expo Go app is installed in your mobile phone
+
+- Run the `npx expo start` command in your IDE to start the development server for the mobile app
