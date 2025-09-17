@@ -79,3 +79,25 @@ Reset the project to its bare minimum with the following command:
 npm run reset-project
 
 ___________________________
+
+--------------------------------------------------
+
+____ ____ _  _ ___ ____    ____ ____ ___ _  _ ___  
+|__/ |  | |  |  |  |___    [__  |___  |  |  | |__] 
+|  \ |__| |__|  |  |___    ___] |___  |  |__| |    
+                                                   
+--------------------------------------------------
+
+Created (root) and (tabs) folders.
+
+Moved index.tsx file inside the (tabs) folder 
+
+Created sign-in.tsx in the app folder.
+
+Created explore.tsx and profile.tsx files within the (tabs) folder.
+
+Created properties folder.
+
+Created [id].tsx file for showing property details.
+
+___________________________
