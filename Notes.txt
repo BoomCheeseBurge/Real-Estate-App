@@ -35,3 +35,47 @@ Install the Expo Go which will be the development environment for mobile app.
 -  Ensure that the Expo Go app is installed in your mobile phone
 
 - Run the `npx expo start` command in your IDE to start the development server for the mobile app
+
+___________________________
+
+Current Project Structure:
+
+- tsconfig.json
+
+: contains the config for type-safety of TypeScript
+
+- package.json
+
+: contains dependencies of the project
+
+- app.json
+
+: contains config for the application itself
+
+- scripts
+
+: by default contains a script to reset the application to its bare minimum
+
+- .gitignore
+
+: determine which files or folders to be excluded when pushing to Git
+
+- Boilerplate Code
+
+: found in the hooks, constants, and components folders
+
+- assets
+
+: contains assets of the project like images, videos, documents, etc
+
+- app
+
+: contains the routing functionality similar to that of Next.JS
+
+___________________________
+
+Reset the project to its bare minimum with the following command:
+
+npm run reset-project
+
+___________________________
