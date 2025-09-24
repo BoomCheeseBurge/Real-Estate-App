@@ -133,3 +133,63 @@ Added bundler of type "metro" in the app.json file.
 Changed value of "./App.tsx" to "./app/**/*.{js,jsx,ts,tsx}" in the tailwind.config.js.
 
 ___________________________
+
+-----------------------------------------------------------------------------------------------------
+
+____ ____ _  _ ___ ____    ____ _  _ ___     ____ ____ ____ ____ ___ ____    ____ ____ ___ _  _ ___  
+|___ |  | |\ |  |  [__     |__| |\ | |  \    |__| [__  [__  |___  |  [__     [__  |___  |  |  | |__] 
+|    |__| | \|  |  ___]    |  | | \| |__/    |  | ___] ___] |___  |  ___]    ___] |___  |  |__| |    
+                                                                                                     
+-----------------------------------------------------------------------------------------------------
+
+Github Repo for the Project:
+
+https://github.com/adrianhajdin/react_native-restate/tree/main
+
+Downloaded the assets from this link:
+
+https://drive.google.com/file/d/1HxuvAeJfiPfcZ1co5fU0ahKRw4sbA0gO/view
+
+Copied and pasted the 'assets' folder to the root folder of the project.
+
+Copied and pasted the 'constants' folder to the root folder of the project.
+
+---------
+
+The 'icon' property under the 'expo' object already points to the correct image asset in the app.json file.
+
+Changed the filename of 'android-icon-foreground.png' to 'icon.png' for the 'foreground' property under android > adaptiveIcon object in the app.json file.
+
+Changed the filename of 'android-icon-background.png' to 'icon.png' for the 'foreground' property under android > adaptiveIcon object in the app.json file.
+
+Changed the filename of 'android-icon-monochrome.png' to 'icon.png' for the 'foreground' property under android > adaptiveIcon object in the app.json file.
+
+Added an array above the 'experiments' object in the app.json file.
+
+Modified the 'expo-splash-screen' object properties.
+
+---------
+
+Installed expo font with the following command:
+
+npx expo install expo-font
+
+Imported the fonts and modified the code in the '_layout.tsx' file.
+
+Added fontFamily and colors properties for custom values in the tailwind.config.js file.
+
+----------
+
+There is currently a bug happening with the app icon.
+
+The given filename for the app icon and splash screen is "icon.png".
+
+However, the default image will still be shown.
+
+When the image filename is changed to other than that, say "real-icon.png" or "app-icon.png", the image will be shown properly on the app icon and splash screen.
+
+----------
+
+Created "image.d.ts" file for declaring rules for the constants.
+
+___________________________

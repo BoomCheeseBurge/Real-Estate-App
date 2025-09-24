@@ -6,14 +6,15 @@ export default function Index() {
     <View
       className="flex-1 items-center justify-center bg-white"
     >
-      	<Text className="font-bold text-lg my-10">Welcome to the Real Estate App</Text>
+      	<Text className="font-bold font-rubik text-3xl my-10">Welcome to ReState</Text>
 		<Text className="text-xl font-bold text-blue-500">
-			Welcome to Nativewind!
+			Powered by Nativewind and Expo Go
 		</Text>
+
 		<Link href="/sign-in">Sign In</Link>
-        <Link href="/explore">Explore</Link>
-        <Link href="/profile">Profile</Link>
-        <Link href="/properties">Properties</Link>
+		<Link href="/explore">Explore</Link>
+		<Link href="/profile">Profile</Link>
+		<Link href="/properties/1">Properties</Link>
     </View>
   );
 }
