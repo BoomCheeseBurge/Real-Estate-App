@@ -180,6 +180,13 @@ Added fontFamily and colors properties for custom values in the tailwind.config.
 
 ----------
 
+  \         /
+   `-.`-'.-'
+   ,:--.--:.
+  / |  |  | \
+   /\  |  /\
+   | `.:.' |
+
 There is currently a bug happening with the app icon.
 
 The given filename for the app icon and splash screen is "icon.png".
@@ -193,3 +200,28 @@ When the image filename is changed to other than that, say "real-icon.png" or "a
 Created "image.d.ts" file for declaring rules for the constants.
 
 ___________________________
+
+------------------------------------------------------------
+
+____ _ ____ _  _    _ _  _    ____ ____ ____ ____ ____ _  _ 
+[__  | | __ |\ | __ | |\ |    [__  |    |__/ |___ |___ |\ | 
+___] | |__] | \|    | | \|    ___] |___ |  \ |___ |___ | \| 
+                                                            
+------------------------------------------------------------
+
+Hide the top navbar with the code in '_layout.tsx'.
+
+---------
+
+Since SafeAreaView tag has been deprecated, the recommended alternative is React Native Safe Area Context.
+
+Installed it using the following command:
+
+npx expo install react-native-safe-area-context
+
+Github Link: https://github.com/AppAndFlow/react-native-safe-area-context
+
+YouTube Link: https://www.youtube.com/watch?v=ppQKEfnPxjI (SafeAreaView is deprecated in React Native, Here's the alternative) [Coding With Nobody]
+
+___________________________
+

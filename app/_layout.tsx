@@ -29,6 +29,6 @@ export default function RootLayout() {
   // Check if the fonts are not loaded
   if (!fontsLoaded) return null;
   
-
-  return <Stack />;
+  // Hide the top navbar
+  return <Stack screenOptions={{ headerShown: false }} />;
 }
