@@ -225,3 +225,100 @@ YouTube Link: https://www.youtube.com/watch?v=ppQKEfnPxjI (SafeAreaView is depre
 
 ___________________________
 
+-------------------------------------------------------------------------------------------------------------------
+
+____ ___  ___  _ _ _ ____ _ ___ ____    ____ _  _ ___     ____ ____ ____ ____ _    ____    ____ ____ _  _ ___ _  _ 
+|__| |__] |__] | | | |__/ |  |  |___    |__| |\ | |  \    | __ |  | |  | | __ |    |___    |  | |__| |  |  |  |__| 
+|  | |    |    |_|_| |  \ |  |  |___    |  | | \| |__/    |__] |__| |__| |__] |___ |___    |__| |  | |__|  |  |  | 
+                                                            
+-------------------------------------------------------------------------------------------------------------------
+
+Setup AppWrite
+==============
+
+Created a new project in AppWrite called "ReState_Mobile_App" with type "React Native".
+
+The full app name is ReState (com.expo.restate)
+
+---------
+
+After creating the platform for this mobile app, AppWrite doesn't directly give you the steps to install AppWrite dependencies.
+
+As a result, you will need to go to this documentation to continue with the setup.
+
+https://appwrite.io/docs/quick-starts/react-native
+
+---------
+
+Setup Google OAuth
+==================
+
+Go to the 'Auth' section of the AppWrite platform page.
+
+Click on 'Settings' on the menubar.
+
+Select 'Google' and copy the URI
+
+Go to Google Cloud through console.cloud.google.com.
+
+Create a new project there called 'restate' and select the project after it has been created.
+
+Search for 'google auth' in the search bar and select 'Google Auth Platform'
+
+Click on 'Clients' section and click 'Get Started'.
+
+Fill in the necesary information:
+
+- App Information:
+  - App name: ReState
+  - User support email: (use yours or dummy email)
+- Audience: External
+- Contact information: (use yours or dummy email)
+
+And click 'Finish'
+
+---------
+
+Click on 'Create OAuth client'
+
+- Application Type: Web application (since it is similar to a React Native app)
+- Name: (use default name)
+
+Click on 'Add URI' and paste in the URI from AppWrite.
+
+Click 'Create'
+
+---------
+
+Copy the Client ID from the newly created Google OAtuh and paste it into the App ID in AppWrite
+
+Do the same with the Client Secret to the App Secret.
+
+Ensure that the 'Enable' button is toggled to on.
+
+Afterwards, it can be seen i AppWrite that Google OAuth has been enabled.
+
+---------
+
+Next, another platform type has to be registered to ensure the auth works.
+
+In the current platform, AppWrite is handling the OAuth sign-in. As a result, the redirects will be of the AppWrite domain.
+
+These redirects will then create a session for the mobile application which will redirect to the mobile app.
+
+- Click on 'Add Platform' and choose 'Web' on the console homepage
+
+- Choose 'React' for now.
+
+- Fill in '*' for the Hostname
+
+- Create the platform
+
+----------
+
+Copy the project ID from AppWrite console.
+
+Created .env.local file in the root project.
+
+___________________________
+
