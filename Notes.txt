@@ -322,3 +322,30 @@ Created .env.local file in the root project.
 
 ___________________________
 
+---------------------------------------------------------------------------------------------------
+____ ___  _  _    ____ _  _ ___     ____ _  _ ___ _  _    ____ _  _ _  _ ____ ___ _ ____ _  _ ____ 
+[__  |  \ |_/     |__| |\ | |  \    |__| |  |  |  |__|    |___ |  | |\ | |     |  | |  | |\ | [__  
+___] |__/ | \_    |  | | \| |__/    |  | |__|  |  |  |    |    |__| | \| |___  |  | |__| | \| ___] 
+                                                                                                   
+---------------------------------------------------------------------------------------------------
+
+Created '.env.local' file for appwrite oauth secrets.
+
+Created a new folder 'lib' and 'appwrite.ts' file inside.
+
+----------
+
+It says that the 'createOAuthToken' method has been deprecated.
+
+However, the following links still use this method with no warning whatsoever.
+
+- https://appwrite.io/docs/products/auth/oauth2
+- https://appwrite.io/blog/post/fixing-oauth2-issues-in-appwrite-cloud
+
+Maybe the documentation has not been updated yet?
+
+----------
+
+All the necesary AppWrite SDK functions have been written in appwrite.ts file.
+
+___________________________
