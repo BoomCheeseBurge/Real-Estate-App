@@ -6,6 +6,7 @@ export default function Index() {
       className="flex-1 items-center justify-center bg-white"
     >
       	<Text className="font-bold font-rubik text-3xl my-10">Welcome to ReState</Text>
+
 		<Text className="text-xl font-bold text-blue-500">
 			Powered by Nativewind and Expo Go
 		</Text>

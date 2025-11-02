@@ -108,12 +108,14 @@ export async function getCurrentUser() {
         // Check if user ID exists
         if (user.$id) {
             // Create an avatage image based on user initials
-            const userAvatar = avatar.getInitials({ name: user.name });
+            // const userAvatar = avatar.getInitials({ name: user.name });
+
+            const userAvatar = `${config.endpoint}/avatars/initials?name=${user.name}&width=100&height=100`;
 
             // return user information
             return {
                 ...user,
-                avatar: userAvatar.toString()
+                avatar: userAvatar
             }
         }
 
