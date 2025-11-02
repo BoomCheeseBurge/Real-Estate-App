@@ -2,6 +2,7 @@ import { Stack } from "expo-router";
 
 import "./global.css";
 
+import GlobalProvider from "@/lib/global-provider";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
@@ -29,6 +30,10 @@ export default function RootLayout() {
   // Check if the fonts are not loaded
   if (!fontsLoaded) return null;
   
-  // Hide the top navbar
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <GlobalProvider>
+      {/* Hide the top navbar */}
+      <Stack screenOptions={{ headerShown: false }} />
+    </GlobalProvider>
+  );
 }

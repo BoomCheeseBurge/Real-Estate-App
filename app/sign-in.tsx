@@ -1,12 +1,31 @@
 import icons from '@/constants/icons'
 import images from '@/constants/images'
+import { login } from '@/lib/appwrite'
+import { useGlobalContext } from '@/lib/global-provider'
+import { Redirect } from 'expo-router'
 import React from 'react'
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const SignIn = () => {
 
-    const handleLogin = () => {};
+    const { refetch, loading, isLoggedIn } = useGlobalContext();
+
+    // Instantly redirect logged in user to home screen
+    if (!loading && isLoggedIn) return <Redirect href='/' />
+
+    const handleLogin = async() => {
+        // Call the login function from appwrite.ts
+        const result = await login();
+
+        // Check the result and show appropriate message
+        if (result) {
+            // Refetch automatically redirects logged in user to home screen
+            refetch();
+        } else {
+            Alert.alert('Login Failed', 'Unable to login. Please try again.');
+        }
+    };
 
     return (
         <SafeAreaView className='bg-white h-full'>

@@ -277,6 +277,8 @@ Fill in the necesary information:
 
 And click 'Finish'
 
+NOTE: Save the displayed secret information safely in a text file or document.
+
 ---------
 
 Click on 'Create OAuth client'
@@ -347,5 +349,76 @@ Maybe the documentation has not been updated yet?
 ----------
 
 All the necesary AppWrite SDK functions have been written in appwrite.ts file.
+
+___________________________
+
+--------------------------------------------------------------------------------------------------------
+_ _  _ ___ ____ ____ ____ ____ ___ ____    ____ _  _ ___ _  _ ____ _  _ ___ _ ____ ____ ___ _ ____ _  _ 
+| |\ |  |  |___ | __ |__/ |__|  |  |___    |__| |  |  |  |__| |___ |\ |  |  | |    |__|  |  | |  | |\ | 
+| | \|  |  |___ |__] |  \ |  |  |  |___    |  | |__|  |  |  | |___ | \|  |  | |___ |  |  |  | |__| | \| 
+                                                                                                        
+--------------------------------------------------------------------------------------------------------
+
+Call the login function from the handleLogin function in sign-in.tsx
+
+Created 'hook' folder to store custom hooks.
+
+'useAppwrite.ts' custom hook contains a function that returns helpful functions to simplify fetching user data.
+
+----------
+
+Created 'global-provider.tsx' in lib folder in purpose of properly redirecting users.
+
+This file serves as a global auth provider to fetch the user data (if exist) and redirect to the appropriate screen.
+
+----------
+
+Wrap the whole application in _layout.tsx with the global context provider.
+
+----------
+
+Apparently the code from the previous section are not working due to outdated AppWrite code.
+
+Thus, the current up-to-date documentation is used instead.
+
+https://appwrite.io/docs/products/auth/oauth2 (10/28/25)
+
+----------
+
+Installed expo auth session:
+
+npx expo install expo-auth-session expo-crypto
+
+----------
+
+Unfortunately, an error popped up just as the user logged in with oauth as follows:
+
+"Uncaught error java.io.IOException failed to download remote update"
+
+Searched online for the cause and could only find the following reasons:
+
+- https://www.youtube.com/watch?v=GE5USq9vz6w (Troubleshooting Expo Go Connection Issues: Uncaught Error & Download Failures) [Chasfat Projects]
+
+: To check your project and phone app have aligned versions
+
+- https://stackoverflow.com/questions/79418750/reactnative-expo-failed-to-download-remote-update-over-usb
+
+: To check your project and phone app are on the same wifi network
+
+- https://stackoverflow.com/questions/79332816/uncaught-error-java-io-ioexception-failed-to-download-remote-update (The top answer is the solution for this)
+
+Tunneling is like calling a delivery service (the ngrok/tunneling service). You give the service your private apartment number, and they give you a temporary public locker key (the tunnel URL). Anyone can drop a package at the public locker key, and the service guarantees it gets routed securely to your private apartment.: Use tunneling to solve the issue
+
+----------
+
+Modified sign-in.tsx file to handle oauth login.
+
+Created _layout.ts file under app/(root) to gracefully hide other screen tabs when the user is not logged in.
+
+This is a special layout for the properties and tabs.
+
+----------
+
+Moved the properties folder to be under (root) folder which should have been done previously.
 
 ___________________________
