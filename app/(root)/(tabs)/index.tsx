@@ -1,4 +1,3 @@
-import { Link } from "expo-router";
 import { Text, View } from "react-native";
 
 export default function Index() {
@@ -10,11 +9,6 @@ export default function Index() {
 		<Text className="text-xl font-bold text-blue-500">
 			Powered by Nativewind and Expo Go
 		</Text>
-
-		<Link href="/sign-in">Sign In</Link>
-		<Link href="/explore">Explore</Link>
-		<Link href="/profile">Profile</Link>
-		<Link href="/properties/1">Properties</Link>
     </View>
   );
 }
