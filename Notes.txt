@@ -460,3 +460,38 @@ Logout button is placed at the bottom since it is an uncommon action by the user
 The getInitials method from AppWrite is bugging, so the method has been replaced with a direct URI to the getInitials method within 'appwrite.ts'.
 
 ___________________________
+
+-------------------------------------------------------------------------------------------------
+_ _  _ ___  _    ____ _  _ ____ _  _ ___    _  _ ____ _  _ ____    ____ ____ ____ ____ ____ _  _ 
+| |\/| |__] |    |___ |\/| |___ |\ |  |     |__| |  | |\/| |___    [__  |    |__/ |___ |___ |\ | 
+| |  | |    |___ |___ |  | |___ | \|  |     |  | |__| |  | |___    ___] |___ |  \ |___ |___ | \| 
+                                                                                                 
+-------------------------------------------------------------------------------------------------
+
+Modified the index.tsx file to implement the home screen UI and functionality.
+
+----------
+
+Created a 'components' folder under the root directory.
+
+Created 'Search.tsx' component inside that folder.
+
+Imported the component inside index.tsx.
+
+----------
+
+To optimize the search functionality by preventing search on every keypress, the use-debounce package is used.
+
+Source: https://www.npmjs.com/package/use-debounce
+
+Command:
+
+npm i use-debounce
+
+----------
+
+Created 'Cards.tsx' in the components folder.
+
+Created 'Filters.tsx' in the components folder.
+
+___________________________
