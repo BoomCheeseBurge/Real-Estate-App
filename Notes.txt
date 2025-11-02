@@ -495,3 +495,32 @@ Created 'Cards.tsx' in the components folder.
 Created 'Filters.tsx' in the components folder.
 
 ___________________________
+
+--------------------------------------------------------------------------------------------------------------------
+_ _  _ ___  _    ____ _  _ ____ _  _ ___    _  _ ____ _  _ ____    ____ ____ ____ ____ ____ _  _    _    _ ____ ___ 
+| |\/| |__] |    |___ |\/| |___ |\ |  |     |__| |  | |\/| |___    [__  |    |__/ |___ |___ |\ |    |    | [__   |  
+| |  | |    |___ |___ |  | |___ | \|  |     |  | |__| |  | |___    ___] |___ |  \ |___ |___ | \|    |___ | ___]  |  
+                                                                                                                    
+--------------------------------------------------------------------------------------------------------------------
+
+NOTE: No two virtualized lists can be added in two different directions.
+
+----------
+
+Move the components into a flatlist component in index.tsx
+
+----------
+
+Card components are now rendered through flatlist component, no longer directly within the component.
+
+Basically, flatlist is being utilized to flexibly render the scrollable components.
+
+Notice how the content will be the scrollable recommendation section while the header is the top part which can involve another flatlist for the scrollable featured section.
+
+----------
+
+Real user data is being rendered in home screen.
+
+LEFT OFF MINUTE 05:33:00
+
+___________________________
