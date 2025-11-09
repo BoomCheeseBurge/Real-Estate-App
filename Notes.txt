@@ -751,3 +751,48 @@ Created 'getLatestProperties' and 'getProperties' functions in 'appwrite.ts'.
 Meanwhile, 'getProperties' function is for querying, filtering, and limiting the search scope.
 
 ___________________________
+
+-----------------------------------------------------------------------------------------------
+___  _ ____ ___  _    ____ _   _    ____ ___  ___  _ _ _ ____ _ ___ ____    ___  ____ ___ ____ 
+|  \ | [__  |__] |    |__|  \_/     |__| |__] |__] | | | |__/ |  |  |___    |  \ |__|  |  |__| 
+|__/ | ___] |    |___ |  |   |      |  | |    |    |_|_| |  \ |  |  |___    |__/ |  |  |  |  | 
+                                                                                               
+-----------------------------------------------------------------------------------------------
+
+Modified index.tsx to implement the search functionality.
+
+----------
+
+Created handleCardPress function to direct the user to its detail page/screen.
+
+Pass the item to the card since real data is being passed on now.
+
+----------
+
+Modified Cards.tsx to accept the item property as well as define the appropriate type for it.
+
+----------
+
+Created 'NoResults.tsx' to handle whenever there is no item or data to be displayed.
+
+Use this component on the ListEmptyComponent attribute of the FlatList component.
+
+----------
+
+Currently, the search functionality does not work since the table rows have not been indexed yet.
+
+Head over to the 'Indexes' tab in the AppWrite console.
+
+- Index 1
+
+Index Key: index_1, Index type: FullText, Attribute: name, Order: ASC
+
+- Index 2
+
+Index Key: index_2, Index type: FullText, Attribute: address, Order: ASC
+
+- Index 3
+
+Index Key: index_3, Index type: FullText, Attribute: type, Order: ASC
+
+___________________________
