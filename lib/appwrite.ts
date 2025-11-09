@@ -2,7 +2,7 @@
 // import * as Linking from 'expo-linking';
 import { makeRedirectUri } from 'expo-auth-session';
 import { openAuthSessionAsync } from 'expo-web-browser';
-import { Account, Avatars, Client, Databases, OAuthProvider } from 'react-native-appwrite';
+import { Account, Avatars, Client, OAuthProvider, TablesDB } from 'react-native-appwrite';
 
 export const config = {
 
@@ -30,8 +30,8 @@ export const avatar = new Avatars(client);
 // TO create new user account
 export const account = new Account(client);
 
-// TO access the database
-export const database = new Databases(client);
+// TO access the tables database
+export const tablesDB = new TablesDB(client);
 
 
 /**

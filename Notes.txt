@@ -697,3 +697,42 @@ Type: Two-way, Column key: reviews, Column key: property, Relation: Many to one,
 Head over to 'appwrite.ts' to define those established table variables.
 
 ___________________________
+
+-------------------------------------------------------------------------------
+____ ____ ____ ___     ___ _  _ ____    ___  ____ ___ ____ ___  ____ ____ ____ 
+[__  |___ |___ |  \     |  |__| |___    |  \ |__|  |  |__| |__] |__| [__  |___ 
+___] |___ |___ |__/     |  |  | |___    |__/ |  |  |  |  | |__] |  | ___] |___ 
+                                                                               
+-------------------------------------------------------------------------------
+
+Head over to the Github repo:
+
+https://github.com/adrianhajdin/react_native-restate/tree/main?tab=readme-ov-file#snippets
+
+Create 'data.ts' and 'seed.ts' files under the lib folder.
+
+The code in 'seed.ts' file has been completely revamped to match the current version of AppWrite 1.8.0.
+
+Also, due to the fact that records and documents no longer exist, instead replaced with tabels and rows.
+
+----------
+
+Deleted the 'reviews' relationship on the 'proeprties' table.
+
+Created a new relationship on the 'reviews' table instead with the following attributes.
+
+- 'properties' table
+
+Type: Two-way, Column key: property, Column key: reviews, Relation: Many to one, On deleting a row: Cascade
+
+----------
+
+Once the related code has been imported into those files, head over to 'index.tsx' to create a temporary button to seed the database.
+
+Place this component right under the <SafeAreaView> tag.
+
+<Button title="Seed" onPress={seed} />
+
+Press the button once to seed the database with dummy data and reload the app.
+
+___________________________
