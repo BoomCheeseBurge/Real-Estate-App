@@ -2,13 +2,18 @@
 // import * as Linking from 'expo-linking';
 import { makeRedirectUri } from 'expo-auth-session';
 import { openAuthSessionAsync } from 'expo-web-browser';
-import { Account, Avatars, Client, OAuthProvider } from 'react-native-appwrite';
+import { Account, Avatars, Client, Databases, OAuthProvider } from 'react-native-appwrite';
 
 export const config = {
 
     platform: 'com.expo.restate',
     endpoint: process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT,
     projectId: process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID,
+    databaseId: process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID,
+    agentsTableId: process.env.EXPO_PUBLIC_APPWRITE_AGENTS_TABLE_ID,
+    galleriesTableId: process.env.EXPO_PUBLIC_APPWRITE_GALLERIES_TABLE_ID,
+    reviewsTableId: process.env.EXPO_PUBLIC_APPWRITE_REVIEWS_TABLE_ID,
+    propertiesTableId: process.env.EXPO_PUBLIC_APPWRITE_PROPERTIES_TABLE_ID,
 }
 
 export const client = new Client()
@@ -24,6 +29,9 @@ export const avatar = new Avatars(client);
 
 // TO create new user account
 export const account = new Account(client);
+
+// TO access the database
+export const database = new Databases(client);
 
 
 /**

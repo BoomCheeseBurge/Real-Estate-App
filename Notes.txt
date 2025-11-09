@@ -519,8 +519,181 @@ Notice how the content will be the scrollable recommendation section while the h
 
 ----------
 
-Real user data is being rendered in home screen.
+Real user data is now being rendered in home screen.
 
-LEFT OFF MINUTE 05:33:00
+___________________________
+
+-----------------------------------------------------------------------------
+____ ____ ___ _  _ ___     ____ ___  ___  _ _ _ ____ _ ___ ____    ___  ___  
+[__  |___  |  |  | |__]    |__| |__] |__] | | | |__/ |  |  |___    |  \ |__] 
+___] |___  |  |__| |       |  | |    |    |_|_| |  \ |  |  |___    |__/ |__] 
+                                                                             
+-----------------------------------------------------------------------------
+
+In the AppWrite console, go to the Databases section and create a new database.
+
+Give the name of the database, "development", since this is for dev purposes.
+
+Copy the ID of the newly created AppWrite database.
+
+Head on over to '.env.local' and paste in the ID of the AppWrite database as a secret there.
+
+----------
+
+Created a new table for 'agents' in the database.
+
+Copy the ID of the newly created table and store it as a secret in '.env.local' 
+
+The following columns are created for this table along with their attributes:
+
+- 'name'
+
+Type: String, Size: 500, Required
+
+- 'email'
+
+Type: Email, Required
+
+- 'avatar'
+
+Type: URL, Required
+
+[ NOTE: notice how after creating the first column, the option for creating rows appear instead of columns. Go to the 'Columns' section to create more columns ]
+
+[Role]
+
+Head on over to the 'Settings' tab and add a role of type 'Any'.
+
+Select all available permissions and update it.
+
+----------
+
+Create another table with the name 'galleries'.
+
+Copy the ID of the newly created table and store it as a secret in '.env.local' 
+
+The following columns are created for this table along with their attributes:
+
+- 'image'
+
+Type: URL, Required
+
+[Role]
+
+Head on over to the 'Settings' tab and add a role of type 'Any'.
+
+Select all available permissions and update it.
+
+----------
+
+Create another table with the name 'reviews'.
+
+Copy the ID of the newly created table and store it as a secret in '.env.local' 
+
+The following columns are created for this table along with their attributes:
+
+- 'name'
+
+Type: String, Size: 500, Required
+
+- 'avatar'
+
+Type: URL, Required
+
+- 'review'
+
+Type: String, Size: 5000, Required
+
+- 'rating'
+
+Type: Float, Min: 0, Max: 5, Required
+
+[Role]
+
+Head on over to the 'Settings' tab and add a role of type 'Any'.
+
+Select all available permissions and update it.
+
+----------
+
+Create another table with the name 'properties'.
+
+Copy the ID of the newly created table and store it as a secret in '.env.local' 
+
+The following columns are created for this table along with their attributes:
+
+- 'name'
+
+Type: String, Size: 5000, Required
+
+- 'type'
+
+Type: Enum, Elements: [House, Townhouse, Condo, Duplex, Studio, Villa, Apartment, Other], Required
+
+- 'description'
+
+Type: String, Size: 5000, Required
+
+- 'address'
+
+Type: String, Size: 2000, Required
+
+- 'price'
+
+Type: Integer, Min: 0, Required
+
+- 'area'
+
+Type: Float, Min: 0, Required
+
+- 'bedroom'
+
+Type: Integer, Required
+
+- 'bathroom'
+
+Type: Integer, Required
+
+- 'rating'
+
+Type: Float, Required
+
+- 'facilities'
+
+Type: Enum, Elements: [Laundry, Parking, Gym, Wifi, Pet-friendly], Array
+
+- 'image'
+
+Type: URL, Required
+
+- 'geolocation'
+
+Type: String, Size: 5000, Required
+
+[Role]
+
+Head on over to the 'Settings' tab and add a role of type 'Any'.
+
+Select all available permissions and update it.
+
+----------
+
+Still within the 'properties' table but now creating the relationships with other tables.
+
+- 'agents' table
+
+Type: One-way, Column key: agent, Relation: Many to one, On deleting a row: Cascade
+
+- 'galleries' table
+
+Type: One-way, Column key: gallery, Relation: One to many, On deleting a row: Cascade
+
+- 'reviews' table
+
+Type: Two-way, Column key: reviews, Column key: property, Relation: Many to one, On deleting a row: Cascade
+
+----------
+
+Head over to 'appwrite.ts' to define those established table variables.
 
 ___________________________
