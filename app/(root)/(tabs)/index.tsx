@@ -42,10 +42,7 @@ export default function Index() {
     });
 
     // Handle card press to navigate to property details
-    const handleCardPress = (id: string) => router.push({ 
-                                                            pathname: '/properties/[id]', 
-                                                            params: { id: id } 
-                                                        });
+    const handleCardPress = (id: string) => router.push(`/properties/${id}`);
 
     // Refetch properties when filter or query changes
     useEffect(() => {
@@ -65,7 +62,7 @@ export default function Index() {
             {/* Safelist is memory efficient */}
             <FlatList 
                 data={properties} 
-                renderItem={({ item }) => <RegularCard item={item} onPress={() => handleCardPress(item.id)} />} 
+                renderItem={({ item }) => <RegularCard item={item} onPress={() => handleCardPress(item.$id)} />} 
                 keyExtractor={(item) => item.$id}
                 numColumns={2}
                 contentContainerClassName="pb-32"
@@ -117,7 +114,7 @@ export default function Index() {
                             <NoResults /> : (
                                 <FlatList 
                                     data={latestProperties}
-                                    renderItem={({item}) => <FeaturedCard item={item} onPress={() => handleCardPress(item.id)} />}
+                                    renderItem={({item}) => <FeaturedCard item={item} onPress={() => handleCardPress(item.$id)} />}
                                     keyExtractor={(item) => item.$id}
                                     horizontal
                                     // Prevents vertical scroll from interfering with horizontal scroll

@@ -31,10 +31,7 @@ export default function Explore() {
     });
 
     // Handle card press to navigate to property details
-    const handleCardPress = (id: string) => router.push({ 
-                                                            pathname: '/properties/[id]', 
-                                                            params: { id: id } 
-                                                        });
+    const handleCardPress = (id: string) => router.push(`/properties/${id}`);
 
     // Refetch properties when filter or query changes
     useEffect(() => {

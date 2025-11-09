@@ -208,3 +208,26 @@ export async function getProperties({
         return [];
     }
 }
+
+/**
+ * Retrieve property details by its ID.
+ * @param id The ID of the property to retrieve.
+ * @returns The property record if found, otherwise null.
+ */
+export async function getPropertyById({ id }: { id: string }) {
+
+    try {
+        const result = await tablesDB.getRow({
+            databaseId: config.databaseId!,
+            tableId: config.propertiesTableId!,
+            rowId: id,
+            queries: [Query.select(['*', 'agent.*', 'gallery.*', 'reviews.*'])]
+        });
+
+        return result;
+
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
