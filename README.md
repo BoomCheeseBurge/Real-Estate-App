@@ -124,7 +124,7 @@ Make sure you have the following installed on your machine:
       - 'reviews' table
         - 'properties' table ( Type: Two-way, Column key: property, Column key: reviews, Relation: Many to one, On deleting a row: Cascade )
 
-Fill in the necessary information within `.env.local` in the root of your project and add the following content:
+Duplicate `.env.local.example` and rename into `.env.local`. Next, fill in the necessary information within `.env.local` in the root of your project and add the following content:
 
 ```env
 EXPO_PUBLIC_APPWRITE_PROJECT_ID=
