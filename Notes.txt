@@ -736,3 +736,18 @@ Place this component right under the <SafeAreaView> tag.
 Press the button once to seed the database with dummy data and reload the app.
 
 ___________________________
+
+-------------------------------------------------------------------------
+____ ____ ___ ____ _  _    ___  ____ ____ ___  ____ ____ ___ _ ____ ____ 
+|___ |___  |  |    |__|    |__] |__/ |  | |__] |___ |__/  |  | |___ [__  
+|    |___  |  |___ |  |    |    |  \ |__| |    |___ |  \  |  | |___ ___] 
+                                                                         
+-------------------------------------------------------------------------
+
+Created 'getLatestProperties' and 'getProperties' functions in 'appwrite.ts'.
+
+'getLatestProperties' function is for the featured properties.
+
+Meanwhile, 'getProperties' function is for querying, filtering, and limiting the search scope.
+
+___________________________

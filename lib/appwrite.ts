@@ -2,7 +2,7 @@
 // import * as Linking from 'expo-linking';
 import { makeRedirectUri } from 'expo-auth-session';
 import { openAuthSessionAsync } from 'expo-web-browser';
-import { Account, Avatars, Client, OAuthProvider, TablesDB } from 'react-native-appwrite';
+import { Account, Avatars, Client, OAuthProvider, Query, TablesDB } from 'react-native-appwrite';
 
 export const config = {
 
@@ -130,5 +130,81 @@ export async function getCurrentUser() {
     } catch (error) {
         console.error(error);
         return null;
+    }
+}
+
+/**
+ * Retrieve the latest properties from the database.
+ * @returns An array of the latest property records.
+ */
+export async function getLatestProperties() {
+    try {
+        const result = await tablesDB.listRows({
+            databaseId: config.databaseId!,
+            tableId: config.propertiesTableId!,
+            queries: [
+                Query.orderAsc('$createdAt'),
+                Query.limit(5)
+            ]
+        });
+
+        return result.rows;
+
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
+
+/**
+ * Retrieve properties based on filter and search query.
+ * @param filter 
+ * @param query 
+ * @param limit
+ * @returns An array of property records matching the criteria.
+ */
+export async function getProperties({
+    filter,
+    query,
+    limit
+}: {
+    filter: string;
+    query: string;
+    limit?: number;
+}) {
+    try {
+        // Build the query array
+        const buildQuery = [Query.orderDesc('$createdAt')];
+
+        // Apply filters if any
+        if (filter && filter != 'All') {
+            buildQuery.push(Query.equal('type', filter));
+        }
+
+        // Apply search query if any
+        if (query) {
+            buildQuery.push(
+                Query.or([
+                    Query.search('name', query),
+                    Query.search('address', query),
+                    Query.search('type', query)
+                ])
+            );
+        }
+
+        // Apply limit if any
+        if (limit) buildQuery.push(Query.limit(limit));
+
+        const result = await tablesDB.listRows({
+            databaseId: config.databaseId!,
+            tableId: config.propertiesTableId!,
+            queries: buildQuery
+        });
+
+        return result.rows;
+        
+    } catch (error) {
+        console.error(error);
+        return [];
     }
 }
