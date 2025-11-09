@@ -15,7 +15,11 @@
 
    <div align="center">
      Built this project step by step with the help of JavaScript Mastery on <a href="https://www.youtube.com/@javascriptmastery/videos" target="_blank"><b>JavaScript Mastery</b></a> YouTube.
-    </div>
+   </div>
+
+   <div align="center">
+    You can view the Figma design associated with this mobile app <a href="https://www.figma.com/design/rpiqHBQsyE5fQudIpWHKbh/Real-Scout---Real-Estate-App?node-id=0-1&t=GJyhpIznL9Yxxybk-1" target="_blank"><b>here</b></a>.
+   </div>
 </div>
 
 ## 📋 <a name="table">Table of Contents</a>
