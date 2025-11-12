@@ -15,6 +15,8 @@ import icons from "@/constants/icons";
 import images from "@/constants/images";
 
 import Comment from "@/components/Comment";
+import Slider from "@/components/Slider";
+import { ImageSlider } from "@/constants/SliderData";
 import { useAppwrite } from "@/hook/useAppwrite";
 import { getPropertyById } from "@/lib/appwrite";
 
@@ -40,21 +42,24 @@ const Property = () => {
             >
                 {/* Property Image and Topbar Navigation */}
                 <View className="relative w-full" style={{ height: windowHeight / 2 }}>
+
+                    <Slider itemList={ImageSlider} />
+
                     {/* Property image */}
-                    <Image
+                    {/* <Image
                         source={{ uri: property?.image }}
                         className="size-full"
                         resizeMode="cover"
-                    />
+                    /> */}
                     {/* Gradient at the top */}
-                    <Image
+                    {/* <Image
                         source={images.whiteGradient}
                         className="absolute top-0 w-full z-40"
-                    />
+                    /> */}
 
                     {/* Topbar Navigation */}
                     <View
-                        className="z-50 absolute inset-x-7"
+                        className="z-50 absolute inset-x-7 mt-5"
                         style={{
                         top: Platform.OS === "ios" ? 70 : 20,
                         }}
@@ -62,9 +67,9 @@ const Property = () => {
                         <View className="flex flex-row items-center w-full justify-between">
                             <TouchableOpacity
                                 onPress={() => router.back()}
-                                className="flex flex-row bg-primary-200 rounded-full size-11 items-center justify-center"
+                                className="flex flex-row bg-primary-300/50 rounded-full size-10 items-center justify-center"
                             >
-                                <Image source={icons.backArrow} className="size-5" />
+                                <Image source={icons.backArrow2} className="size-8" />
                             </TouchableOpacity>
 
                             <View className="flex flex-row items-center gap-3">

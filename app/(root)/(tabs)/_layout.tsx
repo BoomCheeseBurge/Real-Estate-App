@@ -75,6 +75,18 @@ const TabsLayout = () => {
             )
             }}
         />
+
+        {/* Test Tab */}
+        <Tabs.Screen 
+            name="test"
+            options={{
+                title: 'Test',
+                headerShown: false,
+                tabBarIcon: ({ focused }) => (
+                <TabIcon focused={focused} icon={icons.info} title="Test" />
+            )
+            }}
+        />
     </Tabs>
   )
 }

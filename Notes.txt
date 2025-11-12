@@ -680,11 +680,11 @@ Select all available permissions and update it.
 
 Still within the 'properties' table but now creating the relationships with other tables.
 
-- 'agents' table
+- 'agent' table
 
 Type: One-way, Column key: agent, Relation: Many to one, On deleting a row: Cascade
 
-- 'galleries' table
+- 'gallery' table
 
 Type: One-way, Column key: gallery, Relation: One to many, On deleting a row: Cascade
 
@@ -717,7 +717,7 @@ Also, due to the fact that records and documents no longer exist, instead replac
 
 ----------
 
-Deleted the 'reviews' relationship on the 'proeprties' table.
+Deleted the 'reviews' relationship on the 'properties' table.
 
 Created a new relationship on the 'reviews' table instead with the following attributes.
 
@@ -834,6 +834,45 @@ Created 'Comment.tsx' file into the component folder.
 See the following link to include the relationship data as well when querying a single property.
 
 https://appwrite.io/docs/products/databases/queries#relationship-select
+
+___________________________
+
+--------------------------------------------------------------------------------------------------------------
+_ _  _ ___  _    ____ _  _ ____ _  _ ___    _ _  _ ____ ____ ____    ____ ____ ____ ____ _  _ ____ ____ _    
+| |\/| |__] |    |___ |\/| |___ |\ |  |     | |\/| |__| | __ |___    |    |__| |__/ |  | |  | [__  |___ |    
+| |  | |    |___ |___ |  | |___ | \|  |     | |  | |  | |__] |___    |___ |  | |  \ |__| |__| ___] |___ |___ 
+                                                                                                             
+--------------------------------------------------------------------------------------------------------------
+
+Created 'Slide.tsx', 'SliderItem.tsx', 'SliderData.tsx', and 'SliderPagination.tsx'.
+
+Installed linear gradient package by expo with the following command:
+
+npx expo install expo-linear-gradient
+
+----------
+
+Installed React Native Reanimated package with the following command:
+
+npm i react-native-reanimated
+
+----------
+
+Source: https://www.youtube.com/watch?v=wIh60UQzUKY (React Native Animated Carousel Tutorial | FlatList | Image Slider | Swiper) [Pradip Debnath]
+
+----------
+
+Created a new table called 'showcases' to store all the featured images of a property.
+
+Create the relationship between properties and showcases tables in the properties table.
+
+- 'showcase' table
+
+Type: One-way, Column key: showcase, Relation: One to many, On deleting a row: Cascade
+
+[ NOTE: AppWrite has deemed the table to already have too many columns, so this column cannot be created ]
+
+However, the 'showcases' table would likely be seeded the same way the 'galleries' table is seeded.
 
 ___________________________
 
