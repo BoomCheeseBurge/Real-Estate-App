@@ -1,8 +1,9 @@
-import { Tabs } from 'expo-router';
+import { Tabs, useFocusEffect, usePathname } from 'expo-router';
 import React from 'react';
 import { Image, Text, View } from 'react-native';
 
 import icons from '@/constants/icons';
+import { useGlobalContext } from '@/lib/global-provider';
 
 
 /**
@@ -27,68 +28,89 @@ const TabIcon = ({
 )
 
 const TabsLayout = () => {
-  return (
-    <Tabs
-        screenOptions={{
-            tabBarShowLabel: false,
-            tabBarStyle: {
-                backgroundColor: '#FFFFFF',
-                position: 'absolute',
-                borderTopColor: '#0061FF1A',
-                borderTopWidth: 1,
-                minHeight: 70,
+
+    // Import the reset filter function
+    const { resetAllFilters } = useGlobalContext();
+    // Get the current page
+    const pathname = usePathname();
+
+    // Reset the filters when the user switch to any of these pages
+    useFocusEffect(
+        React.useCallback(() => {
+            
+            // Reset filters if the current pathname is any of the following
+            if (pathname === '/profile' || pathname === 'test') {
+                resetAllFilters();
             }
-        }}
-    >
-        {/* Home Tab */}
-        <Tabs.Screen 
-            name="index"
-            options={{
-                title: 'Home',
-                headerShown: false,
-                tabBarIcon: ({ focused }) => (
-                <TabIcon focused={focused} icon={icons.home} title="Home" />
-            )
-            }}
-        />
-        
-        {/* Explore Tab */}
-        <Tabs.Screen 
-            name="explore"
-            options={{
-                title: 'Explore',
-                headerShown: false,
-                tabBarIcon: ({ focused }) => (
-                <TabIcon focused={focused} icon={icons.search} title="Explore" />
-            )
-            }}
-        />
 
-        {/* Profile Tab */}
-        <Tabs.Screen 
-            name="profile"
-            options={{
-                title: 'Profile',
-                headerShown: false,
-                tabBarIcon: ({ focused }) => (
-                <TabIcon focused={focused} icon={icons.person} title="Profile" />
-            )
-            }}
-        />
+            return () => {
+                // Optional cleanup function
+            };
+        }, [pathname])
+    );
 
-        {/* Test Tab */}
-        <Tabs.Screen 
-            name="test"
-            options={{
-                title: 'Test',
-                headerShown: false,
-                tabBarIcon: ({ focused }) => (
-                <TabIcon focused={focused} icon={icons.info} title="Test" />
-            )
+    return (
+        <Tabs
+            screenOptions={{
+                tabBarShowLabel: false,
+                tabBarStyle: {
+                    backgroundColor: '#FFFFFF',
+                    position: 'absolute',
+                    borderTopColor: '#0061FF1A',
+                    borderTopWidth: 1,
+                    minHeight: 70,
+                }
             }}
-        />
-    </Tabs>
-  )
+        >
+            {/* Home Tab */}
+            <Tabs.Screen 
+                name="index"
+                options={{
+                    title: 'Home',
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                    <TabIcon focused={focused} icon={icons.home} title="Home" />
+                )
+                }}
+            />
+            
+            {/* Explore Tab */}
+            <Tabs.Screen 
+                name="explore"
+                options={{
+                    title: 'Explore',
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                    <TabIcon focused={focused} icon={icons.search} title="Explore" />
+                )
+                }}
+            />
+
+            {/* Profile Tab */}
+            <Tabs.Screen 
+                name="profile"
+                options={{
+                    title: 'Profile',
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                    <TabIcon focused={focused} icon={icons.person} title="Profile" />
+                )
+                }}
+            />
+
+            {/* Test Tab */}
+            <Tabs.Screen 
+                name="test"
+                options={{
+                    title: 'Test',
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                    <TabIcon focused={focused} icon={icons.info} title="Test" />
+                )
+                }}
+            />
+        </Tabs>
+    )
 }
 
 export default TabsLayout

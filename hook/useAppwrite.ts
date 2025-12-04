@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import { Alert } from "react-native";
 
-interface UseAppwriteOptions<T, P extends Record<string, string | number>> {
+// Define valid param type
+type AppwriteParamValue = string | number | string[] | number[] | undefined;
+
+interface UseAppwriteOptions<T, P extends Record<string, AppwriteParamValue>> {
   fn: (params: P) => Promise<T>;
-  params?: P;
+  params?: Partial<P>;
   skip?: boolean;
 }
 
@@ -15,7 +18,7 @@ interface UseAppwriteReturn<T, P> {
 }
 
 // Custom hook for managing Appwrite API calls with state handling
-export const useAppwrite = <T, P extends Record<string, string | number>>({
+export const useAppwrite = <T, P extends Record<string, AppwriteParamValue>>({
         fn, // Async function to fetch data
         params = {} as P, // Parameters for the function
         skip = false,
@@ -26,13 +29,13 @@ export const useAppwrite = <T, P extends Record<string, string | number>>({
     const [error, setError] = useState<string | null>(null);
 
     const fetchData = useCallback(
-        async (fetchParams: P) => {
+        async (fetchParams: Partial<P>) => {
             
             setLoading(true);
             setError(null);
 
             try {
-                const result = await fn(fetchParams);
+                const result = await fn(fetchParams as P);
                 setData(result);
 
             } catch (err: unknown) {

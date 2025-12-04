@@ -876,3 +876,100 @@ However, the 'showcases' table would likely be seeded the same way the 'gallerie
 
 ___________________________
 
+-------------------------------------------------------------------------------------------------------
+_ _  _ ___  _    ____ _  _ ____ _  _ ___    ____ ____ ____ ____ ____ _  _    ____ _ _    ___ ____ ____ 
+| |\/| |__] |    |___ |\/| |___ |\ |  |     [__  |___ |__| |__/ |    |__|    |___ | |     |  |___ |__/ 
+| |  | |    |___ |___ |  | |___ | \|  |     ___] |___ |  | |  \ |___ |  |    |    | |___  |  |___ |  \ 
+                                                                                                       
+-------------------------------------------------------------------------------------------------------
+
+Created a new component called 'BottomSheet' under the component folder. 
+
+----------
+
+Added a new color in the Tailwind config for the modal backdrop.
+
+----------
+
+Expo router modal has issues when being used in stacked routes:
+
+https://github.com/expo/router/issues/630
+
+https://stackoverflow.com/questions/79579030/modal-presentation-not-working-with-dynamic-route-folder-in-expo-router-e-g-s
+
+----------
+
+Massive credit to the following video for the modal contribution to this project:
+
+https://www.youtube.com/watch?v=WpVcdjkmSzY [CodeWithAuxStream] (Crafting a Sleek React Native Bottom Sheet Modal from Scratch | No Libraries Needed - Part 1)
+
+----------
+
+Created 'MyModal.tsx' under components folder to have a variant of modal that covers the bottom tabs.
+
+Alternatively, BottomSheet component can be used to have a modal to show along with the bottom tabs.
+
+----------
+
+Created 'RangeSlider.tsx' under components folder.
+
+Massive credit to the following video for the two-point range slider contribution to this project:
+
+https://www.youtube.com/watch?v=sZ0BDG9PAd4 [Rakha Wibowo] (React Native Custom Range Slider using Reanimated 2 From Scratch)
+
+The Github repo has an up-to-date version of the range slider:
+
+https://github.com/Rakha112/react-native-animation/tree/main/season1/src/05-React-Native-Custom-Range-Slider
+
+----------
+
+React Native Gesture Handler can be tricky when gesture objects are within React Native modals.
+
+As per the comment by 'Martijnvcvv', "RNGH works in a react native Modal if you wrap ONLY the content of the Modal in the GestureHandlerRootView component" must as shown below taken from the code of this project.
+
+        <Modal
+            animationType="none" // Handle the animation manually
+            transparent={true} 
+            visible={visible} 
+            onRequestClose={closeModalHandler} // Handles Android back button
+        >
+            <GestureHandlerRootView>
+
+Source: https://github.com/software-mansion/react-native-gesture-handler/issues/139#issuecomment-790329701
+
+----------
+
+Modified the filter to be able to select multiple types.
+
+Changes are made to 'index.tsx', 'explore.tsx', 'appwrite.tsx', 'useAppwrite.tsx', and 'Filters.tsx'.
+
+----------
+
+Filter reset button in the modal is implemented.
+
+----------
+
+Draggable modal:
+
+- https://www.youtube.com/watch?v=d4A0NXY6aaM [Code React] (Create a Smooth Draggable Bottom Sheet in React Native | Gesture & Animation)
+
+- https://www.youtube.com/watch?v=oBM0lh7tcyY [Masum Dev] (Bottom Sheet React Native Easy Way (2025) 📱)
+
+- https://www.youtube.com/watch?v=SgeAfiz_j_w [Code with Beto] (Bottom Sheet React Native | Expo Tutorial 2022)
+
+----------
+
+RoomCount, Search, Filters, and appwrite are modified to be able to apply multi-select filters within the modal.
+
+The interface in 'useAppwrite.ts' is modified to adjust to the changes applied in the files mentioned above.
+
+----------
+
+Moved filter params (except query) from local search params to Global provider so that filter params are preserved when switching to other screens (since 'Index' and 'Explore' page have the same property list).
+
+Added reset function to Global provider to reset the filters when switching to other tabs besides the 'Index' and 'Explore' tab.
+
+Reset filter test is located in '_layout.tsx' file of (tabs).
+
+___________________________
+

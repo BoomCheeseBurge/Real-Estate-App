@@ -20,9 +20,11 @@ import language from "@/assets/icons/language.png";
 import laundry from "@/assets/icons/laundry.png";
 import location from "@/assets/icons/location.png";
 import logout from "@/assets/icons/logout.png";
+import minusSign from "@/assets/icons/minus-sign.png";
 import people from "@/assets/icons/people.png";
 import person from "@/assets/icons/person.png";
 import phone from "@/assets/icons/phone.png";
+import plusSign from "@/assets/icons/plus-sign.png";
 import rightArrow from "@/assets/icons/right-arrow.png";
 import run from "@/assets/icons/run.png";
 import search from "@/assets/icons/search.png";
@@ -68,4 +70,6 @@ export default {
   wifi,
   location,
   edit,
+  plusSign,
+  minusSign,
 };

@@ -165,10 +165,22 @@ export async function getLatestProperties() {
  */
 export async function getProperties({
     filter,
+    minPrice,
+    maxPrice,
+    minBuilding,
+    maxBuilding,
+    bedroomCount,
+    bathroomCount,
     query,
     limit
 }: {
-    filter: string;
+    filter: string[];
+    minPrice: number | undefined;
+    maxPrice: number | undefined;
+    minBuilding: number | undefined;
+    maxBuilding: number | undefined;
+    bedroomCount: number | undefined;
+    bathroomCount: number | undefined;
     query: string;
     limit?: number;
 }) {
@@ -176,12 +188,77 @@ export async function getProperties({
         // Build the query array
         const buildQuery = [Query.orderDesc('$createdAt')];
 
-        // Apply filters if any
-        if (filter && filter != 'All') {
-            buildQuery.push(Query.equal('type', filter));
+        // --- Helper Function to Validate Input ---
+        // Converts input safely to a valid number
+        const safeNum = (param: string | number | undefined): number | undefined => {
+            // Treat empty string/null/undefined as undefined
+            if (param === undefined || param === null || param === '') return undefined; 
+            
+            const num = Number(param);
+            return isNaN(num) ? undefined : num;
+        };
+
+        // --- Property Type Filtering ---
+        // Check if the filter array has items aand does not only contain ['All']
+        const activeFilters = filter?.filter(f => f !== 'All');
+        
+        if (activeFilters && activeFilters.length > 0) {
+
+            // Ensures all property types are included in the query
+            const filterQueries = activeFilters.map(f => Query.equal('type', f));
+            
+            // Only one filter selected (e.g., ['House'])
+            if (filterQueries.length === 1) {
+                buildQuery.push(filterQueries[0]);
+
+            // Multiple filters selected (e.g., ['House', 'Apartment'])
+            } else if (filterQueries.length > 1) {
+                buildQuery.push(
+                    Query.or(filterQueries)
+                );
+            }
         }
 
-        // Apply search query if any
+        // --- Price Range Filtering ---
+        const minP = safeNum(minPrice);
+        const maxP = safeNum(maxPrice);
+        
+        // Asumsi nama field adalah 'price'
+        if (minP !== undefined) {
+            buildQuery.push(Query.greaterThanEqual('price', minP));
+        }
+        if (maxP !== undefined) {
+            buildQuery.push(Query.lessThanEqual('price', maxP));
+        }
+
+        // --- Building Size Range Filtering ---
+        const minB = safeNum(minBuilding);
+        const maxB = safeNum(maxBuilding);
+
+        if (minB !== undefined) {
+            buildQuery.push(Query.greaterThanEqual('area', minB));
+        }
+        if (maxB !== undefined) {
+            buildQuery.push(Query.lessThanEqual('area', maxB));
+        }
+
+        // --- Room Count Filtering ---
+        const bedC = safeNum(bedroomCount);
+        const bathC = safeNum(bathroomCount);
+
+        if (bedC !== undefined && bedC >= 1) {
+            buildQuery.push(Query.equal('bedrooms', bedC));
+        }
+        if (bathC !== undefined && bathC >= 1) {
+            buildQuery.push(Query.equal('bathrooms', bathC));
+        }
+
+        // // Apply filters if any
+        // if (filter && filter != 'All') {
+        //     buildQuery.push(Query.equal('type', filter));
+        // }
+
+        // --- Text Search Query ---
         if (query) {
             buildQuery.push(
                 Query.or([
@@ -192,7 +269,7 @@ export async function getProperties({
             );
         }
 
-        // Apply limit if any
+        // --- Limit Query ---
         if (limit) buildQuery.push(Query.limit(limit));
 
         const result = await tablesDB.listRows({

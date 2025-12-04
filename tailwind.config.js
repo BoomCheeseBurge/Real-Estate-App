@@ -35,6 +35,7 @@ module.exports = {
           300: "#191d31",
         },
         danger: "#F75555",
+        modalBackdrop: "rgba(0, 0, 0, 0.3)",
       }
     },
   },

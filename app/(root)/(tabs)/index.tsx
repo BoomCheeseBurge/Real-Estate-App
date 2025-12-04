@@ -6,17 +6,30 @@ import icons from "@/constants/icons";
 import { useAppwrite } from "@/hook/useAppwrite";
 import { getLatestProperties, getProperties } from "@/lib/appwrite";
 import { useGlobalContext } from "@/lib/global-provider";
-import { router, useLocalSearchParams } from "expo-router";
-import { useEffect } from "react";
+import { router } from "expo-router";
+import { useEffect, useMemo } from "react";
 import { ActivityIndicator, FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
 
     // Global user state
-    const { user } = useGlobalContext();
-    // Get search params from the URL
-    const params = useLocalSearchParams<{ query?: string; filter?: string; }>();
+    const { user, filters } = useGlobalContext();
+
+    // Derive activeFilters ONLY from the global filters state
+    const activeFilters = useMemo(() => {
+        const filterArray = filters.filter;
+        
+        // Ensure the filter is an array and handle trimming/validity
+        if (Array.isArray(filterArray)) {
+            return filterArray.map(f => f.trim()).filter(f => f.length > 0);
+        }
+
+        // Default to ['All'] if the array is empty or undefined
+        return ['All']; 
+    }, [filters.filter]); // Dependency only on the filter array part of the global state
+
+    // const [modalVisible, setModalVisible] = useState(false);
 
     // Fetch latest properties
     const {
@@ -34,8 +47,10 @@ export default function Index() {
     } = useAppwrite({
         fn: getProperties,
         params: {
-            filter: params.filter!,
-            query: params.query!,
+            // filter: params.filter!,
+            ...filters,
+            filter: activeFilters!,
+            query: filters.query!,
             limit: 6
         },
         skip: true
@@ -48,13 +63,28 @@ export default function Index() {
     useEffect(() => {
       
         refetch({
-            filter: params.filter!,
-            query: params.query!,
+            // filter: params.filter!,
+            filter: activeFilters!,
+            minPrice: filters.minPrice,
+            maxPrice: filters.maxPrice,
+            minBuilding: filters.minBuilding,
+            maxBuilding: filters.maxBuilding,
+            bedroomCount: filters.bedroomCount,
+            bathroomCount: filters.bathroomCount,
+            query: filters.query!,
             limit: 6
         });
     
-    }, [params.filter, params.query])
-    
+    }, [
+        activeFilters!,
+        filters.minPrice,
+        filters.maxPrice,
+        filters.minBuilding,
+        filters.maxBuilding,
+        filters.bedroomCount,
+        filters.bathroomCount,
+        filters.query!,
+    ]);
 
     return (
         <SafeAreaView className="bg-white h-full">
