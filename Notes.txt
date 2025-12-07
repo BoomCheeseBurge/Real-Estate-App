@@ -377,7 +377,7 @@ Wrap the whole application in _layout.tsx with the global context provider.
 
 ----------
 
-Apparently the code from the previous section are not working due to outdated AppWrite code.
+Apparently, the code from the previous section are not working due to outdated AppWrite code.
 
 Thus, the current up-to-date documentation is used instead.
 
@@ -420,6 +420,14 @@ This is a special layout for the properties and tabs.
 ----------
 
 Moved the properties folder to be under (root) folder which should have been done previously.
+
+----------
+
+Deep link refers to a special type of URL that links directly to a specific location within a mobile app, rather than a location on the web.
+
+Its purpose is for the external service (Google/Appwrite) to append the authentication data (like the session secret and userId you were looking for) to this URL and sends the user's browser back to it.
+
+In other words, deep link is basically a return address that the external service (like Google's sign-in page) uses to send the user—along with their authentication token—back to your mobile app after they successfully sign in.
 
 ___________________________
 

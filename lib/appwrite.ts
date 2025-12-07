@@ -47,33 +47,42 @@ export async function login() {
         const deepLink = new URL(makeRedirectUri({ preferLocalhost: true }));
         const scheme = `${deepLink.protocol}//`; // accesses the scheme in app.json based on 'appwrite-callback-<PROJECT_ID>://'
 
-        // Request OAuth token form Appwrite's Google provider
+        /**
+         * Request OAuth token from Appwrite's Google OAuth provider
+         * 
+         * Returns the fully constructed URL that points to Appwrite's OAuth endpoint, which will immediately redirect to the official Google sign-in page
+         */
         const loginUrl = await account.createOAuth2Token({
                             provider: OAuthProvider.Google,
                             success: `${deepLink}`,
                             failure: `${deepLink}`,
                         });
 
-        // Check for no response
+        // Check for no response from Google OAuth service (by giving general error message for security purposes)
         if (!loginUrl) throw new Error('Failed to login' );
 
-        // Open loginUrl and listen for the scheme redirect
+        /**
+         * User interacts with the Google login prompt within that opened session
+         * 
+         * listen for the scheme redirect for the user to return to the app
+         */
         const result = await openAuthSessionAsync(`${loginUrl}`, scheme);
 
-        // Check if the result from authentication is failed
+        // Check if the result from authentication failed
         if (result.type != 'success') throw new Error('Failed to login');
 
         /**
+         * Get the session URL
+         * 
          * Extract credentials from OAuth redirect URL
          */
-        // Get the session URL
         const url = new URL(result.url);
 
         // Get the access token from the URL parameters
         const secret = url.searchParams.get('secret')?.toString();
         const userId = url.searchParams.get('userId')?.toString();
 
-        // Check if any of those params doesn't exist
+        // Check if any of those params doesn't exist (by giving general error message for security purposes)
         if (!secret || !userId) throw new Error('Failed to login');
 
         // Continue with account session creation
@@ -87,6 +96,7 @@ export async function login() {
 
         // Session successfully created
         return true;
+
     } catch (error) {
         console.error(error);
         return false;
@@ -97,9 +107,11 @@ export async function login() {
  * Logout Functionality
  */
 export async function logout() {
+
     try {
         await account.deleteSession({ sessionId: 'current' });
         return true;
+
     } catch (error) {
         console.error(error);
         return false;
@@ -110,6 +122,7 @@ export async function logout() {
  * Retrieve logged-in user information
  */
 export async function getCurrentUser() {
+    
     try {
         const user = await account.get();
 
