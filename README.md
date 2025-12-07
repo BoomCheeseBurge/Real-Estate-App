@@ -28,6 +28,7 @@
 2. 📲 [Features](#features)
 3. 🤳 [Quick Start](#quick-start)
 4. ✍️ [AppWrite Database Seeding](#db-seeding)
+5. ⌚ [To Be Added](#to-be-added)
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
@@ -56,6 +57,8 @@
 👉 **Profile Page**: Customizable user settings and profile management
 
 👉 **Centralized Data Fetching**: Custom-built solution inspired by TanStack’s useQuery for efficient API calls.
+
+👉 **Search Filter**: Find the property you are looking for with specific filters.
 
 and many more, including code architecture and reusability
 
@@ -167,3 +170,15 @@ All you have to do is place this component right under the <SafeAreaView> tag.
 <Button title="Seed" onPress={seed} />
 ```
 Press the button once to seed the database with dummy data and reload the app.
+
+## <a name="to-be-added">⌚ To Be Added</a>
+
+Plans for the future are to implement the following features:
+
+- [ ] Create 'Agent' and 'Admin' roles using the Teams feature provided by Appwrite
+- [ ] Add an admin-only view dashboard
+- [ ] Create a form for users to sign-up as an agent
+- [ ] Enable agent user to upload and view their properties
+- [ ] Implement purchase/booking property system based on buy/rent
+- [ ] Implement like system
+- [ ] Implement comment system (maybe with like system too)
