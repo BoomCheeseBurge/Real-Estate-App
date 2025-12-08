@@ -1,3 +1,5 @@
+import admin from "@/assets/icons/admin.png";
+import agent from "@/assets/icons/agent.png";
 import area from "@/assets/icons/area.png";
 import backArrow2 from "@/assets/icons/back-arrow-2.png";
 import backArrow from "@/assets/icons/back-arrow.png";
@@ -72,4 +74,6 @@ export default {
   edit,
   plusSign,
   minusSign,
+  agent,
+  admin,
 };

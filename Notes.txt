@@ -981,3 +981,63 @@ Reset filter test is located in '_layout.tsx' file of (tabs).
 
 ___________________________
 
+----------------------------------------------------------------
+____ ___  ___  _ _ _ ____ _ ___ ____    ___ ____ ____ _  _ ____ 
+|__| |__] |__] | | | |__/ |  |  |___     |  |___ |__| |\/| [__  
+|  | |    |    |_|_| |  \ |  |  |___     |  |___ |  | |  | ___] 
+                                                                
+____ ____ ____    _  _ ____ ____ ____    ____ ____ _    ____ 
+|___ |  | |__/    |  | [__  |___ |__/    |__/ |  | |    |___ 
+|    |__| |  \    |__| ___] |___ |  \    |  \ |__| |___ |___ 
+                                                             
+----------------------------------------------------------------
+
+- In the Appwrite project, go to the 'Auth' section
+
+- Go to the 'Teams' tab
+
+- Create two teams; 'Admins' and 'Agents'
+
+The base user role is handled by default, as every authenticated user is a user.
+
+Administrator is added manually to the 'Admins' team.
+
+However, agents are added through the app as per request by the user if they would like to sign up as an agent.
+
+----------
+
+Created a function named 'assignToAgentTeam' in 'appwrite.ts'.
+
+----------
+
+Added 'agent' icon to the asset folder.
+
+Added 'agent' as an export icon in 'icons.ts'.
+
+Added 'agent' as a new setting item in 'profile.tsx'.
+
+----------
+
+Created a new member of 'Admins' team manually from the Appwrite console webpage with a role of 'owner'.
+
+----------
+
+Added 'admin' icon to the asset folder.
+
+Added 'admin' as an export icon in 'icons.ts'.
+
+Added 'admin' as a new tab item in '_layout.tsx' of (tabs).
+
+Created new function 'isUserInTeam' to check if the current logged-in user is part of the specified team.
+
+Check in the tab's layout if the current logged-in user is part of the 'Admins' team.
+
+Added the 'Admins' team ID from the Appwrite console to '.env.local' and config object in 'appwrite.ts'.
+
+Render the 'Dashboard' tab if the user is part of the 'Admins' team.
+
+----------
+
+Added 'dashboard.tsx' in the (tabs) folder.
+
+___________________________

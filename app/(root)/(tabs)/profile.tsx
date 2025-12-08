@@ -111,6 +111,13 @@ const Profile = () => {
                     {settings.slice(2).map((item, index) => (
                         <SettingsItem key={index} {...item} />
                     ))}
+
+                    {/* BECOME AN AGENT BUTTON */}
+                    <SettingsItem
+                        icon={icons.agent}
+                        title="Become an Agent"
+                        onPress={() => {}}
+                    />
                 </View>
 
                 {/* LOGOUT BUTTON */}

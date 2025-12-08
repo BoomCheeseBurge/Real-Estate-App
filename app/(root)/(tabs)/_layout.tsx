@@ -3,6 +3,8 @@ import React from 'react';
 import { Image, Text, View } from 'react-native';
 
 import icons from '@/constants/icons';
+import { useAppwrite } from '@/hook/useAppwrite';
+import { config, isUserInTeam } from '@/lib/appwrite';
 import { useGlobalContext } from '@/lib/global-provider';
 
 
@@ -29,10 +31,19 @@ const TabIcon = ({
 
 const TabsLayout = () => {
 
-    // Import the reset filter function
-    const { resetAllFilters } = useGlobalContext();
+    // Import the reset filter function, currently user, and is logged-in
+    const { resetAllFilters, user, isLoggedIn } = useGlobalContext();
+
     // Get the current page
     const pathname = usePathname();
+
+    // Determine if this user is an admin
+    const { data: isAdmin, loading: adminLoading } = useAppwrite<boolean, { teamId: string }>({
+        fn: isUserInTeam,
+        params: { teamId: config.adminsTeamId },
+        // Skip fetching until the user is logged in and the ID is available
+        skip: !isLoggedIn || !user?.$id,
+    });
 
     // Reset the filters when the user switch to any of these pages
     useFocusEffect(
@@ -97,6 +108,19 @@ const TabsLayout = () => {
                 )
                 }}
             />
+
+            {/* Dashboard Tab */}
+            <Tabs.Screen 
+                name="dashboard"
+                options={{
+                    href: isAdmin ? "/dashboard" : null,
+                    title: 'Dashboard',
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                    <TabIcon focused={focused} icon={icons.admin} title="Dashboard" />
+                )
+                }}
+            />                
 
             {/* Test Tab */}
             <Tabs.Screen 

@@ -2,7 +2,7 @@
 // import * as Linking from 'expo-linking';
 import { makeRedirectUri } from 'expo-auth-session';
 import { openAuthSessionAsync } from 'expo-web-browser';
-import { Account, Avatars, Client, OAuthProvider, Query, TablesDB } from 'react-native-appwrite';
+import { Account, Avatars, Client, OAuthProvider, Query, TablesDB, Teams } from 'react-native-appwrite';
 
 export const config = {
 
@@ -14,11 +14,14 @@ export const config = {
     galleriesTableId: process.env.EXPO_PUBLIC_APPWRITE_GALLERIES_TABLE_ID,
     reviewsTableId: process.env.EXPO_PUBLIC_APPWRITE_REVIEWS_TABLE_ID,
     propertiesTableId: process.env.EXPO_PUBLIC_APPWRITE_PROPERTIES_TABLE_ID,
+    adminsTeamId: process.env.EXPO_PUBLIC_APPWRITE_ADMINS_TEAM_ID,
 }
 
 export const client = new Client()
                     .setEndpoint(config.endpoint!)
                     .setProject(config.projectId!);
+
+const teams = new Teams(client);
 
 /**
  * Define functionalities used from AppWrite
@@ -122,7 +125,7 @@ export async function logout() {
  * Retrieve logged-in user information
  */
 export async function getCurrentUser() {
-    
+
     try {
         const user = await account.get();
 
@@ -145,6 +148,49 @@ export async function getCurrentUser() {
         return null;
     }
 }
+
+/**
+ * Check if the user is part of the admin team
+ * 
+ * @param teamId 
+ * @returns
+ */
+export async function isUserInTeam({ teamId }: { teamId: string }): Promise<boolean> {
+    
+    try {
+        // Get the list of teams the current user is a member of
+        const userTeams = await teams.list(); 
+
+        // Check if any of the teams in the list matches the target teamId
+        const isMember = userTeams.teams.some(team => team.$id === teamId);
+
+        return isMember;
+
+        // Typically goes into this error if the user is not logged in within the app
+    } catch (error) {
+        console.error("Error checking team membership:", error);
+        return false;
+    }
+}
+
+/**
+ * Assign 'Agent' role to validated user
+ */
+export async function assignToAgentTeam ({ userEmail }: { userEmail: string }): Promise<void> {
+
+    try {
+
+        const response = await teams.createMembership({
+            teamId: 'Agents',
+            roles: ['member'],
+            email: userEmail,
+        });
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 
 /**
  * Retrieve the latest properties from the database.
