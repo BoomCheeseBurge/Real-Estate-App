@@ -15,6 +15,7 @@ export const config = {
     reviewsTableId: process.env.EXPO_PUBLIC_APPWRITE_REVIEWS_TABLE_ID,
     propertiesTableId: process.env.EXPO_PUBLIC_APPWRITE_PROPERTIES_TABLE_ID,
     adminsTeamId: process.env.EXPO_PUBLIC_APPWRITE_ADMINS_TEAM_ID,
+    agentsTeamId: process.env.EXPO_PUBLIC_APPWRITE_AGENTS_TEAM_ID,
 }
 
 export const client = new Client()
@@ -188,6 +189,24 @@ export async function assignToAgentTeam ({ userEmail }: { userEmail: string }): 
         
     } catch (error) {
         console.log(error);
+    }
+}
+
+/**
+ * Get list of agents
+ */
+export async function getAgents() {
+
+    try {
+        const result = await teams.listMemberships({
+            teamId: config.agentsTeamId!,
+        });
+
+        return result;
+        
+    } catch (error) {
+        console.error(error);
+        return [];
     }
 }
 

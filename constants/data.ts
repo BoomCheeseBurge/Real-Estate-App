@@ -163,3 +163,18 @@ export const gallery = [
     image: images.japan,
   },
 ];
+
+export const USER_ROLES = {
+  ADMIN: 'admin',
+  EDITOR: 'editor',
+};
+
+export const ADMIN_TILE = [
+    { id: '1', title: 'Users', icon: icons.user, path: '/dashboard/users' },
+    { id: '2', title: 'Properties', icon: icons.property2, path: '/dashboard/properties' },
+    { id: '3', title: 'Agents', icon: icons.agent2, path: '/dashboard/agents' },
+];
+
+export const AGENT_TILE = [
+    { id: '1', title: 'Properties', icon: icons.property2, path: '/dashboard/agents' },
+];

@@ -1041,3 +1041,110 @@ Render the 'Dashboard' tab if the user is part of the 'Admins' team.
 Added 'dashboard.tsx' in the (tabs) folder.
 
 ___________________________
+
+--------------------------------------------------------------------
+___  ____ ____ _  _ ___  ____ ____ ____ ___     ___  ____ ____ ____ 
+|  \ |__| [__  |__| |__] |  | |__| |__/ |  \    |__] |__| | __ |___ 
+|__/ |  | ___] |  | |__] |__| |  | |  \ |__/    |    |  | |__] |___ 
+                                                                    
+--------------------------------------------------------------------
+
+Added the 'Agents' team ID from the Appwrite console to '.env.local' and config object in 'appwrite.ts'.
+
+----------
+
+Show dashboard tab only if the user is either an admin or agent.
+
+----------
+
+Added user role constants in 'data.ts'.
+
+Created a component for user role badge named 'RoleBadge.tsx'.
+
+Added darker primary color in tailwind config file.
+
+Created a component for clickable tiles named 'TileGrid.tsx'.
+
+----------
+
+If memberships do not contain any username or email, then it is likely caused by the default privasy protection.
+
+Source:
+
+https://appwrite.io/threads/1377590058898423899
+
+Went over to the 'Security' tab in the 'Auth' section and turned on (ticked the checkbox) Name field.
+
+----------
+
+Added a new tab for uploading new property specifically for 'admin' and 'agent' role.
+
+Separated agent card as a separate component. 
+
+----------
+
+Added dummy data for agents in 'data.ts'.
+
+----------
+
+Added 'caret-downward' icon to the asset folder.
+
+Added 'caretDown' as an export icon in 'icons.ts'.
+
+Used this icon for expand dropdown options in member list.
+
+----------
+
+Added a dropdown menu to edit or delete a member.
+
+----------
+
+Added 'lock' icon to the asset folder.
+
+Added 'lock' as an export icon in 'icons.ts'.
+
+Used this icon to prevent unauthorized CRUD operations.
+
+----------
+
+Added lazy load by showing 10 members first and 10 more subsequently by pressing the 'load more' button.
+
+----------
+
+Added 'clear-search' icon to the asset folder.
+
+Added 'clearSearch' as an export icon in 'icons.ts'.
+
+Used this icon to clear search keywords at once.
+
+----------
+
+Here is the truthy table to determine whether the actions should be shown in the member list.
+
+isSelf  | isAdmin | Result of !isSelf && !isAdmin | Action
+---------------------------------------------------------------------
+False   | False   |               True            | ✅ Show Dropdown
+True    | False   |               False           | ❌ Hide (It's You)
+False   | True    |               False           | ❌ Hide (It's an Admin)
+True    | True    |               False           | ❌ Hide (It's You + Admin)
+
+----------
+
+Created 'dummy.ts' to separate dummy data into its own file.
+
+----------
+
+Users and Properties pages currrently have no data rendered inside them.
+
+At least the Agents page already has dummy data rendered inside them (or optionally switch to Appwrite's 'Agent' team member list with the provided function).
+
+----------
+
+Added 'empty-box' icon to the asset folder.
+
+Added 'emptyBox' as an export icon in 'icons.ts'.
+
+Used this icon to show empty list.
+
+___________________________
+

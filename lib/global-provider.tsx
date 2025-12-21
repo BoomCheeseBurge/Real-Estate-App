@@ -1,5 +1,5 @@
 import { useAppwrite } from "@/hook/useAppwrite";
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
 import { getCurrentUser } from "./appwrite";
 
 export interface FilterParams {
@@ -24,7 +24,7 @@ export const DEFAULT_FILTERS: FilterParams = {
     query: undefined,
 };
 
-interface User {
+export interface User {
 	$id: string;
 	name: string;
 	email: string;
@@ -39,6 +39,8 @@ interface GlobalContextType {
 	filters: FilterParams;
     setFilters: (newFilters: Partial<FilterParams>) => void;
 	resetAllFilters: () => void;
+	admin: boolean;
+	setAdmin: Dispatch<SetStateAction<boolean>>
 }
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
@@ -60,6 +62,9 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
 
 	// Filter State
     const [filters, setFilterState] = useState<FilterParams>(DEFAULT_FILTERS);
+
+	// Admin State
+	const [admin, setAdmin] = useState(false);
 
     // Setter to merge new filters with existing ones
     const setFilters = (newFilters: Partial<FilterParams>) => {
@@ -83,6 +88,8 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
 			filters,
             setFilters,
 			resetAllFilters,
+			admin,
+			setAdmin,
 		}}>
 			{children}
 		</GlobalContext.Provider>
