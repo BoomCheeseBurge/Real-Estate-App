@@ -161,6 +161,13 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
+4. Bundling stuck at 100%?
+
+If you ever get stuck with bundling at 100%, just do the following steps:
+
+- Run this command: `npx expo start --clear`
+- Restart expo server
+
 ## <a name="db-seeding">✍️ AppWrite Database Seeding</a>
 
 Just in case you guys need to seed the database with dummy data, a special button can perform it.
