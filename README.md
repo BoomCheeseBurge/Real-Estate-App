@@ -60,6 +60,8 @@
 
 👉 **Search Filter**: Find the property you are looking for with specific filters.
 
+👉 **Dashboard Page**: This page is only visible to admin users who can currently access three pages inside; users, properties, and agents.  
+
 and many more, including code architecture and reusability
 
 ## <a name="quick-start">🤳 Quick Start</a>
@@ -137,6 +139,8 @@ EXPO_PUBLIC_APPWRITE_AGENTS_TABLE_ID=
 EXPO_PUBLIC_APPWRITE_GALLERIES_TABLE_ID=
 EXPO_PUBLIC_APPWRITE_REVIEWS_TABLE_ID=
 EXPO_PUBLIC_APPWRITE_PROPERTIES_TABLE_ID=
+EXPO_PUBLIC_APPWRITE_ADMINS_TEAM_ID=
+EXPO_PUBLIC_APPWRITE_AGENTS_TEAM_ID=
 ```
 
 Replace the values with your actual Appwrite credentials. You can obtain these credentials by signing up & creating a new project on the [**Appwrite Dashboard**](https://jsm.dev/rn25-appwrite).
@@ -182,8 +186,8 @@ Press the button once to seed the database with dummy data and reload the app.
 
 Plans for the future are to implement the following features:
 
-- [ ] Create 'Agent' and 'Admin' roles using the Teams feature provided by Appwrite
-- [ ] Add an admin-only view dashboard
+- [x] Create 'Agent' and 'Admin' roles using the Teams feature provided by Appwrite
+- [x] Add an admin-only view dashboard
 - [ ] Create a form for users to sign-up as an agent
 - [ ] Enable agent user to upload and view their properties
 - [ ] Implement purchase/booking property system based on buy/rent
