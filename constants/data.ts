@@ -178,3 +178,11 @@ export const ADMIN_TILE = [
 export const AGENT_TILE = [
     { id: '1', title: 'Properties', icon: icons.property2, path: '/dashboard/agents' },
 ];
+
+// -----------------------------------------------------
+// Agent Form Field Options
+
+export const GENDER = [
+    { value: 'Male', label: 'Male'},
+    { value: 'Female', label: 'Female'},
+];

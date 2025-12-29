@@ -2,6 +2,7 @@ import { settings } from '@/constants/data';
 import icons from '@/constants/icons';
 import { logout } from '@/lib/appwrite';
 import { useGlobalContext } from '@/lib/global-provider';
+import { useRouter } from 'expo-router';
 import React from 'react';
 import { Alert, Image, ImageSourcePropType, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -9,7 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 interface SettingsItemProps {
     icon: ImageSourcePropType;
     title: string;
-    onPress?: () => void;
+    onPress?: (path: string) => void;
     textStyle?: string;
     showArrow?: boolean;
 }
@@ -41,6 +42,15 @@ const SettingsItem = ({
 const Profile = () => {
 
     const { user, refetch } = useGlobalContext();
+
+    // Initialize the router
+    const router = useRouter(); 
+    
+    // Setting navigation handler
+    const handleSettingNav = (path: string) => {
+
+        router.push(path as any);
+    };
 
     const handleLogout = async () => {
 
@@ -116,7 +126,7 @@ const Profile = () => {
                     <SettingsItem
                         icon={icons.agent}
                         title="Become an Agent"
-                        onPress={() => {}}
+                        onPress={() => {handleSettingNav("/profile/agentForm")}}
                     />
                 </View>
 

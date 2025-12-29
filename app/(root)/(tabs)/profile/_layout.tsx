@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
 
-export default function DashboardLayout() {
+export default function ProfileLayout() {
   return (
     // We use a Stack to allow navigation between index, reports, users, etc.
     <Stack screenOptions={{ headerShown: false }}>

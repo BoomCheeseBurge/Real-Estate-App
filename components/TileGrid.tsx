@@ -4,7 +4,6 @@ import { FlatList, Image, ImageSourcePropType, Text, TouchableOpacity, View } fr
 
 // --- Tile Item Component ---
 const TileItem = ({ item, navigateTo }: {
-    
     item: {
         id: string;
         title: string;

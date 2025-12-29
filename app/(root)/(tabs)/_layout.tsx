@@ -167,6 +167,7 @@ const TabsLayout = () => {
             <Tabs.Screen 
                 name="profile"
                 options={{
+                    href: "/profile",
                     title: 'Profile',
                     headerShown: false,
                     tabBarIcon: ({ focused }) => (

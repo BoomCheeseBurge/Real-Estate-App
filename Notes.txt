@@ -1148,3 +1148,59 @@ Used this icon to show empty list.
 
 ___________________________
 
+-------------------------------------------------------------------------
+___  ____ ____ ___  ____ ____ ___ _   _    ____ ____ ____ _  _ ___ 
+|__] |__/ |  | |__] |___ |__/  |   \_/     |__| | __ |___ |\ |  |  
+|    |  \ |__| |    |___ |  \  |    |      |  | |__] |___ | \|  |  
+
+____ ___  ___  _    _ ____ ____ ___ _ ____ _  _    ____ ____ ____ _  _ 
+|__| |__] |__] |    | |    |__|  |  | |  | |\ |    |___ |  | |__/ |\/| 
+|  | |    |    |___ | |___ |  |  |  | |__| | \|    |    |__| |  \ |  | 
+                                                                        
+-------------------------------------------------------------------------
+
+Moved profile page to its own folder for sub-pages within the profile page.
+
+----------
+
+Created 'agentForm.tsx' page within the profile folder.
+
+----------
+
+Created a re-usable dropdown component.
+
+Link:
+
+https://www.youtube.com/watch?v=ZBetEZKFOyY [Simply React Native] (Dropdown react native/expo (No external libraries))
+
+Alternatively, a simple package can be used instead if needed.
+
+https://www.youtube.com/watch?v=J9raEY-1KPQ [Danish Amin] (React Native Easy Dropdown Select List)
+
+----------
+
+Added constant data for gender options in 'data.ts'.
+
+----------
+
+Created a re-usable datetimepicker component.
+
+Installed Expo's datetimepicker with the following command:
+
+npx expo install @react-native-community/datetimepicker
+
+Link:
+
+https://www.youtube.com/watch?v=UEfFjfW7Zes [ToThePointCode] (Using Date Picker with TextInput (Expo | React Native App))
+
+Reference:
+
+https://www.npmjs.com/package/@react-native-community/datetimepicker#usage
+
+----------
+
+Next to be implemented is to create a new table in Appwrite to store these application form information.
+
+Then, implement the 'agent approval' page in the admin's dashboard to either admit, decline, or revoke a user's agent privilege.
+
+___________________________
