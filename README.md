@@ -62,6 +62,10 @@
 
 👉 **Dashboard Page**: This page is only visible to admin users who can currently access three pages inside; users, properties, and agents.  
 
+👉 **Become an Agent Form**: Users can sign-up to become a property agent through this form. Submitted form currently only logs to console.
+
+👉 **Upload Property Form**: Agent-role based users can upload new properties through this form accessed from the middle of the bottom navigation bar. 
+
 and many more, including code architecture and reusability
 
 ## <a name="quick-start">🤳 Quick Start</a>
@@ -119,8 +123,9 @@ Make sure you have the following installed on your machine:
         - 'bedroom' ( Type: Integer, Required )
         - 'bathroom' ( Type: Integer, Required )
         - 'rating' ( Type: Float, Required )
-        - 'facilities' ( Type: Enum, Elements: [Laundry, Parking, Gym, Wifi, Pet-friendly], Array )
+        - 'facilities' ( Type: Enum, Elements: [Laundry, Car Parking, Gym, Wi-fi, Pet-friendly, Sports Center, Cutlery, Swimming Pool], Array )
         - 'image' ( Type: URL, Required )
+        - 'images' ( Type: String, Size: 36, Null )
         - 'geolocation' ( Type: String, Size: 5000, Required )
    6. Create the following relationships.
       - 'properties' table
@@ -128,6 +133,19 @@ Make sure you have the following installed on your machine:
         - 'galleries' table ( Type: One-way, Column key: gallery, Relation: One to many, On deleting a row: Cascade )
       - 'reviews' table
         - 'properties' table ( Type: Two-way, Column key: property, Column key: reviews, Relation: Many to one, On deleting a row: Cascade )
+   7. Create a bucket storage.
+      - Go to the 'Storage' section in the AppWrite console
+        - Click on the 'Create bucket' button
+        - Name it any way you want (perhaps a suggested one can be 'property_images')
+        - For testing purposes, go to the 'Settings' tab of the newly created bucket
+        - Scroll down to 'Permissions' and add a new role with all CRUD permissions ticked
+        - Update the changes
+      - Added the newly created bucket ID into your .env file
+
+To test uploading a property using your own AppWrite account, don't forget to add yourself as an agent by using your own AppWrite user ID in the Row ID column when creating a new row in the 'agent' table.
+
+> Also, note that 'galleries' table and its relationship column in the 'properties' table should be deleted in the future since it is currently used for retrieving pre-populated property images.
+> In the future, a new column storing an array of property image IDs from the created AppWrite bucket should be stored instead.
 
 Duplicate `.env.local.example` and rename into `.env.local`. Next, fill in the necessary information within `.env.local` in the root of your project and add the following content:
 
