@@ -1204,3 +1204,178 @@ Next to be implemented is to create a new table in Appwrite to store these appli
 Then, implement the 'agent approval' page in the admin's dashboard to either admit, decline, or revoke a user's agent privilege.
 
 ___________________________
+
+-------------------------------------------------------------------------
+_  _ ___  _    ____ ____ ___     ___  ____ ____ ___  ____ ____ ___ _   _ 
+|  | |__] |    |  | |__| |  \    |__] |__/ |  | |__] |___ |__/  |   \_/  
+|__| |    |___ |__| |  | |__/    |    |  \ |__| |    |___ |  \  |    |   
+                                                                         
+-------------------------------------------------------------------------
+
+Created a new page for uploading property called 'upload.tsx'.
+
+----------
+
+ImagePicker from Expo is used to select property image(s) in the property upload form.
+
+Reference:
+
+https://docs.expo.dev/versions/latest/sdk/imagepicker/
+
+Installed ImagePicker with the following command:
+
+npx expo install expo-image-picker
+
+----------
+
+Added 'camera-lens' icon to the asset folder.
+
+Added 'camera' as an export icon in 'icons.ts'.
+
+Used this icon as an option to choose image from camera.
+
+----------
+
+Added 'gallery-icon' icon to the asset folder.
+
+Added 'gallery' as an export icon in 'icons.ts'.
+
+Used this icon as an option to choose image from gallery.
+
+----------
+
+Added 'plus-icon' icon to the asset folder.
+
+Added 'plusIcon' as an export icon in 'icons.ts'.
+
+Used this icon to upload image.
+
+----------
+
+This project uses the bucket storage from AppWrite store property images.
+
+As alternatives, here are videos related to uploading images to mobile app and to a SaaS (Storage as a Service).
+
+https://www.youtube.com/watch?v=syK7ZSnmRUk [Bug Ninza] (Ultimate Guide to Uploading Media Files to Firebase Storage with React Native Expo | New Approach)
+
+https://www.youtube.com/watch?v=yJdmFchzvLw [Loyd Lab] ([React native 2023 ] Firebase storage - Upload, Download, Image List)
+
+https://www.youtube.com/watch?v=Ivf3P_4NE_E [Pradip Debnath] (How to Add Image Picker & Handle Permissions in React Native)
+
+----------
+
+Created a folder within app folder called 'contexts'.
+
+Created a 'FormContext.tsx' file inside to provide as a context provider for the multi-step form.
+
+Created a folder called "multiStepForm" in the components folder.
+
+Created "PropertyForm.tsx", "OverviewForm.tsx", "FacilitiesForm.tsx", and "PricingForm.tsx" files within that multiStepForm folder.
+
+Reference:
+
+https://www.youtube.com/watch?v=ENVbotyoO44 [Zaid Ajani] (How to make a multi-step form or pagination in ReactJS and React native)
+
+----------
+
+Fixed dropdown component issues by replacing flatlist with scrollview.
+
+Fixed image picker component for property upload to use scrollView instead of flatlist.
+
+----------
+
+[ Create New AppWrite Bucket ]
+
+- Go to the 'Storage' section in the AppWrite console
+
+- Click on the 'Create bucket' button
+
+- Name it any way you want (perhaps a suggested one can be 'property_images')
+
+- For testing purposes, go to the 'Settings' tab of the newly created bucket
+
+- Scroll down to 'Permissions' and add a new role with all CRUD permissions ticked
+
+- Update the changes
+
+Reference:
+
+https://appwrite.io/docs/products/storage
+
+----------
+
+Added the newly created bucket ID into .env and to the config object in appwrite.ts
+
+Added the storage client initialization object in appwrite.ts
+
+Created a new AppWrite function called 'uploadPropertyImages' to upload new property images into the AppWrite bucket.
+
+Reference:
+
+https://appwrite.io/docs/tutorials/react-native/step-6
+
+----------
+
+Created a new AppWrite function called 'insertNewProperty' to upload a new property record into the AppWrite database.
+
+Reference:
+
+https://appwrite.io/docs/products/databases/rows
+
+https://www.youtube.com/watch?v=kOViJ1RBgHw&t=114s [Aaron Saunders] (SIMPLE File Upload with Expo and Appwrite | Universal App)
+
+----------
+
+Created a function for validating all config values in 'appwrite.ts'.
+
+----------
+
+To test uploading a property using your own AppWrite account, don't forget to add yourself as an agent by using your own AppWrite user ID in the Row ID column when creating a new row in the 'agent' table.
+
+Also, note that 'galleries' table and its relationship column in the 'properties' table should be deleted in the future since it is currently used for retrieving pre-populated property images.
+
+In the future, a new column storing an array of property image IDs from the created AppWrite bucket should be stored instead.
+
+----------
+
+I know I asked ChatGPT for this, but whatever. I asked what should be the appropriate size set for the column that stores the IDs of the AppWrite bucket images.
+
+For storing Appwrite IDs (generated via ID.unique()), you should set the size to at least 36 characters.
+
+While the IDs currently generated by Appwrite are typically 20 characters, using a size of 36 is the industry standard for several important reasons:
+
+1. Future-Proofing
+
+Appwrite's internal ID generation logic could change. If they switch from their current custom hex-timestamp format to a standard UUID (36 characters) or ULID (26 characters), a column limited to 20 characters will immediately start failing, causing your app to crash during image uploads.
+
+2. No Performance Penalty
+
+In Appwrite (which uses MariaDB/MySQL under the hood), there is virtually no performance or storage difference between a string(20) and a string(36). You only pay for the characters you actually use.
+
+3. Room for Custom IDs
+
+If you ever decide to manually name a file (e.g., user_123_profile_picture), a 20-character limit will be too restrictive.
+
+----------
+
+Created a new column named 'images' to store IDs of AppWrite bucket files for the uploaded property images.
+
+----------
+
+In TypeScript, an interface cannot be assigned to a Record unless it has an index signature. And so, [key: string]: any; (or a more specific union) has been added to the 'FormData' interface definition in 'FormContext.tsx'.
+
+Updated 'useAppwrite.ts' to adjust with the 'insertNewProperty' function called in 'index.tsx' of upload.
+
+----------
+
+address and geolocation fields will be fixed in the next push request along with Google Maps API implementation.
+
+----------
+
+Hide Android's native nav bar using a config in 'app.json'.
+
+----------
+
+Added a component for wavy text for the loading state in the upload form.
+
+___________________________

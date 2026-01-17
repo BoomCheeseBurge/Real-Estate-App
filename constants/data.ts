@@ -56,83 +56,83 @@ export const featuredCards = [
 ];
 
 export const categories = [
-  { title: "All", category: "All" },
-  { title: "House", category: "House" },
-  { title: "Condo", category: "Condo" },
-  { title: "Duplex", category: "Duplex" },
-  { title: "Studio", category: "Studio" },
-  { title: "Villa", category: "Villa" },
-  { title: "Apartment", category: "Apartment" },
-  { title: "Townhouse", category: "Townhouse" },
-  { title: "Other", category: "Other" },
+  { label: "All", value: "All" },
+  { label: "House", value: "House" },
+  { label: "Condo", value: "Condo" },
+  { label: "Duplex", value: "Duplex" },
+  { label: "Studio", value: "Studio" },
+  { label: "Villa", value: "Villa" },
+  { label: "Apartment", value: "Apartment" },
+  { label: "Townhouse", value: "Townhouse" },
+  { label: "Other", value: "Other" },
 ];
 
 export const settings = [
   {
-    title: "My Bookings",
+    label: "My Bookings",
     icon: icons.calendar,
   },
   {
-    title: "Payments",
+    label: "Payments",
     icon: icons.wallet,
   },
   {
-    title: "Profile",
+    label: "Profile",
     icon: icons.person,
   },
   {
-    title: "Notifications",
+    label: "Notifications",
     icon: icons.bell,
   },
   {
-    title: "Security",
+    label: "Security",
     icon: icons.shield,
   },
   {
-    title: "Language",
+    label: "Language",
     icon: icons.language,
   },
   {
-    title: "Help Center",
+    label: "Help Center",
     icon: icons.info,
   },
   {
-    title: "Invite Friends",
+    label: "Invite Friends",
     icon: icons.people,
   },
 ];
 
 export const facilities = [
   {
-    title: "Laundry",
+    label: "Laundry",
     icon: icons.laundry,
   },
   {
-    title: "Car Parking",
+    label: "Car Parking",
     icon: icons.carPark,
   },
   {
-    title: "Sports Center",
+    label: "Sports Center",
     icon: icons.run,
   },
   {
-    title: "Cutlery",
+    label: "Cutlery",
     icon: icons.cutlery,
   },
   {
-    title: "Gym",
+    label: "Gym",
     icon: icons.dumbell,
   },
   {
-    title: "Swimming pool",
+    label: "Swimming Pool",
     icon: icons.swim,
   },
   {
-    title: "Wifi",
+    label: "Wi-fi",
     icon: icons.wifi,
   },
   {
-    title: "Pet Center",
+    label: "Pet-friendly",
     icon: icons.dog,
   },
 ];
@@ -164,19 +164,25 @@ export const gallery = [
   },
 ];
 
+export const PERIODS = [
+    { label: "Monthly", value: "Monthly" },
+    { label: "Yearly", value: "Yearly" },
+    { label: "One-time", value: "One-time" },
+];
+
 export const USER_ROLES = {
   ADMIN: 'admin',
   EDITOR: 'editor',
 };
 
 export const ADMIN_TILE = [
-    { id: '1', title: 'Users', icon: icons.user, path: '/dashboard/users' },
-    { id: '2', title: 'Properties', icon: icons.property2, path: '/dashboard/properties' },
-    { id: '3', title: 'Agents', icon: icons.agent2, path: '/dashboard/agents' },
+    { id: '1', label: 'Users', icon: icons.user, path: '/dashboard/users' },
+    { id: '2', label: 'Properties', icon: icons.property2, path: '/dashboard/properties' },
+    { id: '3', label: 'Agents', icon: icons.agent2, path: '/dashboard/agents' },
 ];
 
 export const AGENT_TILE = [
-    { id: '1', title: 'Properties', icon: icons.property2, path: '/dashboard/agents' },
+    { id: '1', label: 'Properties', icon: icons.property2, path: '/dashboard/agents' },
 ];
 
 // -----------------------------------------------------

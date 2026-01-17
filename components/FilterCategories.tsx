@@ -52,7 +52,7 @@ const FilterCategories = ({ selectedCategories, onSelectCategories }: FilterCate
                     onPress={() => handleCategoryPress(item.category)}
                 >
                     <Text className={`text-sm ${isSelected(item.category) ? 'text-white font-rubik-bold mt-0.5' : 'text-black-300 font-rubik'}`}>
-                        {item.title}
+                        {item.label}
                     </Text>
                 </TouchableOpacity>
             ))} 

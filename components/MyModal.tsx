@@ -9,9 +9,10 @@ interface BottomSheetProps {
     title: string;
     onReset?: () => void;
     children: ReactNode;
+    modalHeight?: string; 
 }
 
-const MyModal = ({ onClose, visible, title, onReset, children }: BottomSheetProps) => { // <-- Destructure visible prop
+const MyModal = ({ onClose, visible, title, onReset, children, modalHeight = 'h-1/4' }: BottomSheetProps) => { // <-- Destructure visible prop
 
     // Slide animation value
     const slideAnim = useRef(new Animated.Value(600)).current; // Initial value for opacity: 0
@@ -84,7 +85,7 @@ const MyModal = ({ onClose, visible, title, onReset, children }: BottomSheetProp
                     className='flex-1 justify-end top-0 left-0 w-full h-full bg-modalBackdrop z-[100]'
                 >
                     {/* Second pressable component here to prevent closing when tapping inside the bottom sheet */}
-                    <View className='h-4/5 w-full' onStartShouldSetResponder={() => true}>
+                    <View className={`${modalHeight} w-full`} onStartShouldSetResponder={() => true}>
                         {/* The Animated.View remains the same, handling the content slide */}
                         <Animated.View 
                             className='bg-white w-full h-full rounded-t-3xl'
@@ -95,8 +96,9 @@ const MyModal = ({ onClose, visible, title, onReset, children }: BottomSheetProp
                                 <View className='justify-between flex-row w-full items-center px-4 py-6'>
                                     {/* Item 1: Close modal (Positioned Left by default flex flow) */}
                                         <TouchableOpacity 
-                                        onPress={closeModal} 
-                                        className="flex flex-row bg-primary-200 rounded-full size-11 items-center justify-center z-10">
+                                            onPress={closeModal} 
+                                            className="flex flex-row bg-primary-200 rounded-full size-11 items-center justify-center z-10"
+                                        >
                                             <Image source={icons.backArrow} className="size-5" />
                                         </TouchableOpacity>
 

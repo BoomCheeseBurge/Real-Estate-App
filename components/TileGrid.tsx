@@ -6,7 +6,7 @@ import { FlatList, Image, ImageSourcePropType, Text, TouchableOpacity, View } fr
 const TileItem = ({ item, navigateTo }: {
     item: {
         id: string;
-        title: string;
+        label: string;
         icon: ImageSourcePropType;
         path: string;
     },
@@ -28,7 +28,7 @@ const TileItem = ({ item, navigateTo }: {
                 <Image source={item.icon} className='size-8'/>
                 
                 <Text className="text-white text-sm font-semibold text-center mt-1 tracking-wider">
-                    {item.title}
+                    {item.label}
                 </Text>
             </TouchableOpacity>
         </View>

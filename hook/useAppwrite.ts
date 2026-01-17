@@ -1,8 +1,9 @@
+import { ImagePickerAsset } from "expo-image-picker";
 import { useCallback, useEffect, useState } from "react";
 import { Alert } from "react-native";
 
 // Define valid param type
-type AppwriteParamValue = string | number | string[] | number[] | undefined;
+export type AppwriteParamValue = string | number | boolean | string[] | number[] | ImagePickerAsset[] | undefined;
 
 interface UseAppwriteOptions<T, P extends Record<string, AppwriteParamValue>> {
   fn: (params: P) => Promise<T>;
@@ -21,14 +22,17 @@ interface UseAppwriteReturn<T, P> {
 export const useAppwrite = <T, P extends Record<string, AppwriteParamValue>>({
         fn, // Async function to fetch data
         params = {} as P, // Parameters for the function
-        skip = false,
+        skip = false, // Whether to skip initial fetch on component mount
     }: UseAppwriteOptions<T, P>): UseAppwriteReturn<T, P> => {
     
+    // Initialize state variables
     const [data, setData] = useState<T | null>(null);
     const [loading, setLoading] = useState(!skip);
     const [error, setError] = useState<string | null>(null);
 
+    // Function to fetch data
     const fetchData = useCallback(
+        
         async (fetchParams: Partial<P>) => {
             
             setLoading(true);
@@ -39,8 +43,7 @@ export const useAppwrite = <T, P extends Record<string, AppwriteParamValue>>({
                 setData(result);
 
             } catch (err: unknown) {
-                const errorMessage =
-                err instanceof Error ? err.message : "An unknown error occurred";
+                const errorMessage = err instanceof Error ? err.message : "An unknown error occurred";
                 setError(errorMessage);
                 Alert.alert("Error", errorMessage);
 
@@ -51,7 +54,7 @@ export const useAppwrite = <T, P extends Record<string, AppwriteParamValue>>({
         [fn] // Memoize the function to ensure stability unless fn changes
     );
 
-    //   Automatically fetch data on component mount, unless 'skip' is true
+    // Automatically fetch data on component mount, unless 'skip' is true
     useEffect(() => {
 
         if (!skip) {

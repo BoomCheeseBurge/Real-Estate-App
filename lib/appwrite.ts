@@ -1,8 +1,10 @@
 
 // import * as Linking from 'expo-linking';
+import { FormData } from '@/app/contexts/FormContext';
 import { makeRedirectUri } from 'expo-auth-session';
+import { ImagePickerAsset } from 'expo-image-picker';
 import { openAuthSessionAsync } from 'expo-web-browser';
-import { Account, Avatars, Client, OAuthProvider, Query, TablesDB, Teams } from 'react-native-appwrite';
+import { Account, Avatars, Client, ID, OAuthProvider, Query, Storage, TablesDB, Teams } from 'react-native-appwrite';
 
 export const config = {
 
@@ -16,13 +18,67 @@ export const config = {
     propertiesTableId: process.env.EXPO_PUBLIC_APPWRITE_PROPERTIES_TABLE_ID,
     adminsTeamId: process.env.EXPO_PUBLIC_APPWRITE_ADMINS_TEAM_ID,
     agentsTeamId: process.env.EXPO_PUBLIC_APPWRITE_AGENTS_TEAM_ID,
+    propertyBucketId: process.env.EXPO_PUBLIC_APPWRITE_PROPERTY_BUCKET_ID,
 }
 
-export const client = new Client()
-                    .setEndpoint(config.endpoint!)
-                    .setProject(config.projectId!);
+// /**
+//  * Validates that the requested keys in the config object have defined values.
+//  * @param keys An array of keys from the config object.
+//  * @returns A spreadable object containing the validated key-value pairs.
+//  * @throws Error if any of the requested environment variables are missing.
+//  */
+// export const validateConfig = <K extends keyof typeof config>(keys: K[]) => {
 
+//     const validatedConfig = {} as { [P in K]: string };
+
+//     keys.forEach((key) => {
+//         const value = config[key];
+
+//         if (!value) {
+//             throw new Error(`Environment variable for ${String(key)} is missing in EXPO_PUBLIC config.`);
+//         }
+
+//         // cast to string
+//         validatedConfig[key] = value as string;
+//     });
+
+//     return { ...validatedConfig };
+// };
+
+const validateConfig = () => {
+
+    // Create a copy to avoid mutating the original while checking
+    const validatedConfig = {} as { [K in keyof typeof config]: string };
+
+    for (const [key, value] of Object.entries(config)) {
+
+        if (value === undefined || value === null || value === "") {
+            throw new Error(
+                `Configuration Error: The field "${key}" is missing. ` +
+                `Please check your .env file.`
+            );
+        }
+        // Type casting to string because we've verified it's not null/undefined
+        validatedConfig[key as keyof typeof config] = value as string;
+    }
+
+    return validatedConfig;
+};
+
+// Validate all config fields at once
+const validatedConfig = validateConfig();
+
+// Initialize AppWrite client
+export const client = new Client()
+                    .setEndpoint(validatedConfig.endpoint)
+                    .setProject(validatedConfig.projectId);
+
+// Initialize AppWrite Teams service
 const teams = new Teams(client);
+
+// Initialize AppWrite Buckets service
+const storage = new Storage(client);
+
 
 /**
  * Define functionalities used from AppWrite
@@ -37,6 +93,7 @@ export const account = new Account(client);
 // TO access the tables database
 export const tablesDB = new TablesDB(client);
 
+// ----------------------------------------------------------------------------------------
 
 /**
  * Login Authentication
@@ -135,7 +192,7 @@ export async function getCurrentUser() {
             // Create an avatage image based on user initials
             // const userAvatar = avatar.getInitials({ name: user.name });
 
-            const userAvatar = `${config.endpoint}/avatars/initials?name=${user.name}&width=100&height=100`;
+            const userAvatar = `${validatedConfig.endpoint}/avatars/initials?name=${user.name}&width=100&height=100`;
 
             // return user information
             return {
@@ -149,6 +206,8 @@ export async function getCurrentUser() {
         return null;
     }
 }
+
+// ----------------------------------------------------------------------------------------
 
 /**
  * Check if the user is part of the admin team
@@ -180,9 +239,8 @@ export async function isUserInTeam({ teamId }: { teamId: string }): Promise<bool
 export async function assignToAgentTeam ({ userEmail }: { userEmail: string }): Promise<void> {
 
     try {
-
         const response = await teams.createMembership({
-            teamId: 'Agents',
+            teamId: validatedConfig.agentsTeamId,
             roles: ['member'],
             email: userEmail,
         });
@@ -199,7 +257,7 @@ export async function getAgents() {
 
     try {
         const result = await teams.listMemberships({
-            teamId: config.agentsTeamId!,
+            teamId: validatedConfig.agentsTeamId,
         });
 
         return result;
@@ -210,16 +268,122 @@ export async function getAgents() {
     }
 }
 
+// ----------------------------------------------------------------------------------------
+
+/**
+ * Upload property images to AppWrite Storage
+ * @param images
+ * @returns An array of uploaded file IDs
+ */
+export async function uploadPropertyImages({ images }: { images: ImagePickerAsset[]}) {
+
+    try {
+        // Create a list of upload promises
+        const uploadPromises = images.map(async (image) => {
+
+            // Perform Appwrite upload to the bucket
+            return await storage.createFile({
+                bucketId: validatedConfig.propertyBucketId,
+                fileId: ID.unique(),
+                file: {
+                    name: image.fileName!,
+                    type: image.mimeType!,
+                    size: image.fileSize!,
+                    uri: image.uri,
+                }
+            });
+        });
+
+        // Images are all uploaded at the same time to prevent queueuing
+        const uploadedFiles = await Promise.all(uploadPromises);
+
+        // Return the array of File IDs to store in the property database
+        return uploadedFiles.map(file => file.$id);
+
+    } catch (error) {
+        console.error("Upload error:", error);
+        throw error; // Re-throw to handle it in the form
+    }
+}
+
+/**
+ * Insert a new property into the database.
+ * @returns void
+ */
+export async function insertNewProperty(formData: FormData) {
+
+    const user = await getCurrentUser();
+
+    let uploadedImageIds: string[] = [];
+
+    // Handle non-user cases which returns null for user
+    if (!user) {
+        throw new Error("You must be logged in to perform this action.");
+    }
+
+    try {
+        uploadedImageIds = await uploadPropertyImages({ images: formData.images });
+
+        const newRecord = {
+            name: formData.propertyName, // string (max. 5000) - required
+            type: formData.propertyType, // must match one of defined enum values - required
+            description: formData.description, // string (max. 5000) - required
+            address: "Temporary Address", // string (max. 2000) - required
+            price: parseInt(formData.price) || 0, // integer - required
+            area: parseFloat(formData.areaSize) || 0, // double - required
+            bedrooms: parseInt(formData.beds) || 0, // integer - required
+            bathrooms: parseInt(formData.bathrooms) || 0, // integer - required
+            rating: 0.0, // double - required
+            facilities: formData.facilities, // must be included in defined Enum array - required
+            image: formData.images[0]?.uri || "", // uri - required
+            agent: user.$id!, // current user ID - required
+            images: uploadedImageIds, // array of property image AppWrite IDs - required
+            geolocation: "Country", // string - required
+        };
+
+        const response = await tablesDB.createRow({
+            databaseId: validatedConfig.databaseId,
+            tableId: validatedConfig.propertiesTableId,
+            rowId: ID.unique(),
+            data: newRecord,
+            // permissions: [Permission.write(Role.user(idea.userId))]
+        });
+
+        return response;
+        
+    } catch (error) {
+        
+        // Rollback: delete uploaded images if property insertion fails
+        if (uploadedImageIds.length > 0) {
+
+            console.log("Rolling back: Deleting orphaned images...");
+
+            await Promise.all(
+                uploadedImageIds.map(id => storage.deleteFile({
+                    bucketId: validatedConfig.propertyBucketId, 
+                    fileId: id
+                }))
+            );
+        }
+
+        console.error("Appwrite Insertion Error:", error);
+        throw error;
+    }
+}
+
+
+// ----------------------------------------------------------------------------------------
 
 /**
  * Retrieve the latest properties from the database.
  * @returns An array of the latest property records.
  */
 export async function getLatestProperties() {
+    
     try {
         const result = await tablesDB.listRows({
-            databaseId: config.databaseId!,
-            tableId: config.propertiesTableId!,
+            databaseId: validatedConfig.databaseId,
+            tableId: validatedConfig.propertiesTableId,
             queries: [
                 Query.orderAsc('$createdAt'),
                 Query.limit(5)
@@ -351,8 +515,8 @@ export async function getProperties({
         if (limit) buildQuery.push(Query.limit(limit));
 
         const result = await tablesDB.listRows({
-            databaseId: config.databaseId!,
-            tableId: config.propertiesTableId!,
+            databaseId: validatedConfig.databaseId,
+            tableId: validatedConfig.propertiesTableId,
             queries: buildQuery
         });
 
@@ -373,8 +537,8 @@ export async function getPropertyById({ id }: { id: string }) {
 
     try {
         const result = await tablesDB.getRow({
-            databaseId: config.databaseId!,
-            tableId: config.propertiesTableId!,
+            databaseId: validatedConfig.databaseId,
+            tableId: validatedConfig.propertiesTableId,
             rowId: id,
             queries: [Query.select(['*', 'agent.*', 'gallery.*', 'reviews.*'])]
         });

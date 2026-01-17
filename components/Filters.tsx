@@ -70,7 +70,7 @@ const Filters = () => {
                         onPress={() => handleCategoryPress(item.category)}
                     >
                         <Text className={`text-sm ${isSelected ? 'text-white font-rubik-bold mt-0.5' : 'text-black-300 font-rubik'}`}>
-                            {item.title}
+                            {item.label}
                         </Text>
                     </TouchableOpacity>
                 );

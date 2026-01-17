@@ -54,8 +54,9 @@ const BottomSheet = ({ onClose }: BottomSheetProps) => {
                         <View className='justify-between flex-row w-full items-center mb-8'>
                             {/* Close modal */}
                             <TouchableOpacity 
-                            onPress={closeModal} 
-                            className="flex flex-row bg-primary-200 rounded-full size-11 items-center justify-center">
+                                onPress={closeModal} 
+                                className="flex flex-row bg-primary-200 rounded-full size-11 items-center justify-center"
+                            >
                                 <Image source={icons.backArrow} className="size-5" />
                             </TouchableOpacity>
 

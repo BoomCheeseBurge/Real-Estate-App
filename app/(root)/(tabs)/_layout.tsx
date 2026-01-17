@@ -156,6 +156,15 @@ const TabsLayout = () => {
                     title: 'upload',
                     headerShown: false,
                     href: (isAdmin || isAgent) ? '/upload' : null,
+                    // Hide the tab bar when this screen is active
+                    tabBarStyle: {
+                        display: pathname.includes('/upload') ? 'none' : 'flex',
+                        backgroundColor: '#FFFFFF',
+                        position: 'absolute',
+                        borderTopColor: '#0061FF1A',
+                        borderTopWidth: 1,
+                        minHeight: 70,
+                    },
                     tabBarIcon: ({ focused }) => (
                     <TabIconProminent focused={focused} icon={icons.addProperty} title="" />
                 )

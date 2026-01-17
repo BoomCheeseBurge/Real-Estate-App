@@ -183,7 +183,7 @@ const Property = () => {
                         <View className="flex flex-row flex-wrap items-start justify-start mt-2 gap-5">
                             {property?.facilities.map((item: string, index: number) => {
                             const facility = facilities.find(
-                                (facility) => facility.title === item
+                                (facility) => facility.label === item
                             );
 
                             return (
@@ -251,8 +251,8 @@ const Property = () => {
                     </View>
 
                     <Image
-                    source={images.map}
-                    className="h-52 w-full mt-5 rounded-xl"
+                        source={images.map}
+                        className="h-52 w-full mt-5 rounded-xl"
                     />
                 </View>
 

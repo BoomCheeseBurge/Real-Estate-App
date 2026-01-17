@@ -9,7 +9,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface SettingsItemProps {
     icon: ImageSourcePropType;
-    title: string;
+    label: string;
     onPress?: (path: string) => void;
     textStyle?: string;
     showArrow?: boolean;
@@ -20,7 +20,7 @@ interface SettingsItemProps {
  */
 const SettingsItem = ({ 
     icon, 
-    title,
+    label,
     onPress,
     textStyle,
     showArrow = true
@@ -30,7 +30,7 @@ const SettingsItem = ({
             <Image source={icon} className='size-6'/>
 
             <Text className={`text-lg font-rubik-medium text-black-300 ${textStyle}`}>
-                {title}
+                {label}
             </Text>
         </View>
 
@@ -106,13 +106,13 @@ const Profile = () => {
                     {/* My Booking */}
                     <SettingsItem
                         icon={icons.calendar}
-                        title="My Booking"
+                        label="My Booking"
                     />
 
                     {/* Payments */}
                     <SettingsItem
                         icon={icons.wallet}
-                        title="Payments"
+                        label="Payments"
                     />
                 </View>
 
@@ -125,7 +125,7 @@ const Profile = () => {
                     {/* BECOME AN AGENT BUTTON */}
                     <SettingsItem
                         icon={icons.agent}
-                        title="Become an Agent"
+                        label="Become an Agent"
                         onPress={() => {handleSettingNav("/profile/agentForm")}}
                     />
                 </View>
@@ -134,7 +134,7 @@ const Profile = () => {
                 <View className='flex flex-col mt-10 border-t pt-5 border-primary-200'>
                     <SettingsItem
                         icon={icons.logout}
-                        title="Logout"
+                        label="Logout"
                         textStyle="text-danger"
                         showArrow={false}
                         onPress={handleLogout}

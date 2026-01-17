@@ -1,6 +1,6 @@
 import icons from '@/constants/icons';
-import React, { useCallback, useRef, useState } from 'react';
-import { FlatList, Image, Modal, Platform, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { Image, ScrollView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 
 type Option = {
     value: string;
@@ -10,6 +10,7 @@ type Option = {
 interface DropdownProps {
     placeholder: string;
     data: Option[];
+    value?: string;
     onChange: (item: Option) => void;
     disabled?: boolean;
 }
@@ -17,80 +18,76 @@ interface DropdownProps {
 function Dropdown({ 
     placeholder, 
     data, 
+    value: initialValue, 
     onChange, 
     disabled 
 } : DropdownProps) {
-
     const [expanded, setExpanded] = useState(false);
-
-    const [top, setTop] = useState(0);
-
-    const [value, setValue] = useState('');
+    const [selectedLabel, setSelectedLabel] = useState(() => {
+        const found = data.find(item => item.value === initialValue);
+        return found ? found.label : '';
+    });
 
     const toggleExpanded = useCallback(() => {
         if (!disabled) setExpanded(!expanded);
     }, [expanded, disabled]);
 
     const onSelect = useCallback((item: Option) => {
-
-        // Set the value of the selected item
         onChange(item);
-        // Set the label of the dropdown
-        setValue(item.label);
-        // Close the dropdown
+        setSelectedLabel(item.label);
         setExpanded(false);
-    }, []);
-
-    const buttonRef = useRef<View>(null);
+    }, [onChange]);
 
     return (
-        <View 
-            ref={buttonRef}
-            onLayout={(event) => {
-                const layout = event.nativeEvent.layout;
-                const topOffset = layout.y;
-                const heightOfComponent = layout.height;
-
-                const finalTop = topOffset + heightOfComponent + (Platform.OS === 'android' ? 420 : 3)
-
-                setTop(finalTop);
-            }}
-        >
-            {/* Button to expand the dropdown list */}
+        /* Elevated zIndex ensures the menu floats above subsequent form fields */
+        <View className='relative' style={{ zIndex: expanded ? 1000 : 1 }}>
+            
+            {/* Dropdown Trigger Button */}
             <TouchableOpacity 
-                className='h-12 justify-between flex-row bg-white w-full items-center px-4 rounded-lg' 
+                className='h-12 justify-between flex-row bg-white w-full items-center px-4 rounded-lg border border-slate-200' 
                 activeOpacity={0.8}
                 onPress={toggleExpanded}
+                disabled={disabled}
             >
-                <Text className='text-sm opacity-50'>{value || placeholder}</Text>
-
-                <Image source={icons.caretDown} className={`size-3 ${expanded ? 'rotate-180' : 'rotate-0'}`} />
+                <Text className={`text-sm ${selectedLabel ? 'text-black-300' : 'text-black-100 opacity-50'}`}>
+                    {selectedLabel || placeholder}
+                </Text>
+                <Image 
+                    source={icons.caretDown} 
+                    className={`size-3 ${expanded ? 'rotate-180' : 'rotate-0'}`} 
+                    style={{ tintColor: '#666876' }}
+                />
             </TouchableOpacity>
 
-            {/* Dropdown list */}
+            {/* Dropdown Menu */}
             {expanded && (
-                <Modal visible={expanded} transparent>
+                <>
+                    {/* Backdrop to close menu when clicking elsewhere */}
                     <TouchableWithoutFeedback onPress={() => setExpanded(false)}>
-                        <View className='p-5 justify-center items-center flex-1'>
-                            <View className='bg-white w-full p-2 mt-1 rounded-md max-h-60 absolute' style={{top: top}}>
-                                <FlatList 
-                                    keyExtractor={(item) => item.value}
-                                    data={data}
-                                    renderItem={({ item }) => (
-                                        <TouchableOpacity 
-                                            activeOpacity={0.8} 
-                                            className='h-11 justify-center pl-4'
-                                            onPress={() => onSelect(item)}
-                                        >
-                                            <Text>{item.label}</Text>
-                                        </TouchableOpacity>
-                                    )}
-                                    ItemSeparatorComponent={() => <View className='h-2' />}
-                                />
-                            </View>
-                        </View>
+                        <View style={{ position: 'absolute', width: 2000, height: 2000, left: -1000, top: -1000 }} />
                     </TouchableWithoutFeedback>
-                </Modal>
+
+                    <View 
+                        className='bg-white w-full rounded-md shadow-lg border border-slate-100 absolute overflow-hidden'
+                        style={{ 
+                            top: '110%', 
+                            maxHeight: 200,
+                            elevation: 5, // Extra shadow for Android
+                        }}
+                    >
+                        <ScrollView bounces={false} nestedScrollEnabled={true}>
+                            {data.map((item) => (
+                                <TouchableOpacity 
+                                    key={item.value}
+                                    className='h-12 justify-center px-4 border-b border-slate-50 active:bg-slate-100'
+                                    onPress={() => onSelect(item)}
+                                >
+                                    <Text className='text-sm text-black-300'>{item.label}</Text>
+                                </TouchableOpacity>
+                            ))}
+                        </ScrollView>
+                    </View>
+                </>
             )}
         </View>
     )

@@ -139,7 +139,13 @@ const Search = () => {
 
     return (
         <View className='flex flex-row items-center justify-between w-full px-4 rounded-lg bg-accent-100 border border-primary-100 mt-5 py-2'>
-            <MyModal visible={modalVisible} onClose={setModalVisible} title="Filter" onReset={onResetFilter}>
+            <MyModal 
+                visible={modalVisible} 
+                onClose={setModalVisible} 
+                title="Filter" 
+                onReset={onResetFilter}
+                modalHeight='h-4/5'
+            >
                 
                 <View className='flex-1'>
                     <ScrollView 

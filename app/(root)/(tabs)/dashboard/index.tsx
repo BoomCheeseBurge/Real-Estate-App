@@ -9,7 +9,7 @@ export default function Dashboard() {
     const { user, refetch, admin } = useGlobalContext();
 
     return (
-        <SafeAreaView className='h-full bg-primary-400'>
+        <SafeAreaView className='flex-1 bg-primary-400'>
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerClassName="pb-32 flex-grow"

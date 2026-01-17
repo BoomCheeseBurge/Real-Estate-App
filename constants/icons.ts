@@ -9,6 +9,7 @@ import bath from "@/assets/icons/bath.png";
 import bed from "@/assets/icons/bed.png";
 import bell from "@/assets/icons/bell.png";
 import calendar from "@/assets/icons/calendar.png";
+import camera from "@/assets/icons/camera-lens.png";
 import carPark from "@/assets/icons/car-park.png";
 import caretDown from "@/assets/icons/caret-downward.png";
 import chat from "@/assets/icons/chat.png";
@@ -19,6 +20,7 @@ import dumbell from "@/assets/icons/dumbell.png";
 import edit from "@/assets/icons/edit.png";
 import emptyBox from "@/assets/icons/empty-box.png";
 import filter from "@/assets/icons/filter.png";
+import gallery from "@/assets/icons/gallery-icon.png";
 import google from "@/assets/icons/google.png";
 import heart from "@/assets/icons/heart.png";
 import home from "@/assets/icons/home.png";
@@ -32,6 +34,7 @@ import minusSign from "@/assets/icons/minus-sign.png";
 import people from "@/assets/icons/people.png";
 import person from "@/assets/icons/person.png";
 import phone from "@/assets/icons/phone.png";
+import plusIcon from "@/assets/icons/plus-icon.png";
 import plusSign from "@/assets/icons/plus-sign.png";
 import property2 from "@/assets/icons/property-2.png";
 import property from "@/assets/icons/property.png";
@@ -94,4 +97,7 @@ export default {
   lock,
   clearSearch,
   emptyBox,
+  camera,
+  gallery,
+  plusIcon,
 };
