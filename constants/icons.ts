@@ -45,6 +45,7 @@ import send from "@/assets/icons/send.png";
 import shield from "@/assets/icons/shield.png";
 import star from "@/assets/icons/star.png";
 import swim from "@/assets/icons/swim.png";
+import trash from "@/assets/icons/trash-bin.png";
 import user from "@/assets/icons/user.png";
 import wallet from "@/assets/icons/wallet.png";
 import wifi from "@/assets/icons/wifi.png";
@@ -100,4 +101,5 @@ export default {
   camera,
   gallery,
   plusIcon,
+  trash,
 };

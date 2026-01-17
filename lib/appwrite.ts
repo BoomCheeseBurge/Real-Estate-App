@@ -4,6 +4,7 @@ import { FormData } from '@/app/contexts/FormContext';
 import { makeRedirectUri } from 'expo-auth-session';
 import { ImagePickerAsset } from 'expo-image-picker';
 import { openAuthSessionAsync } from 'expo-web-browser';
+import { Alert } from 'react-native';
 import { Account, Avatars, Client, ID, OAuthProvider, Query, Storage, TablesDB, Teams } from 'react-native-appwrite';
 
 export const config = {
@@ -19,6 +20,7 @@ export const config = {
     adminsTeamId: process.env.EXPO_PUBLIC_APPWRITE_ADMINS_TEAM_ID,
     agentsTeamId: process.env.EXPO_PUBLIC_APPWRITE_AGENTS_TEAM_ID,
     propertyBucketId: process.env.EXPO_PUBLIC_APPWRITE_PROPERTY_BUCKET_ID,
+    profilePicBucketId: process.env.EXPO_PUBLIC_APPWRITE_PROFILE_PIC_BUCKET_ID,
 }
 
 // /**
@@ -206,6 +208,74 @@ export async function getCurrentUser() {
         return null;
     }
 }
+
+async function uploadProfilePicture({ image }: { image: ImagePickerAsset}) {
+
+    try {
+        // Upload image file to Appwrite storage bucket
+        const uploadedFile = await storage.createFile({
+            bucketId: validatedConfig.profilePicBucketId,
+            fileId: ID.unique(),
+            file: {
+                name: image.fileName!,
+                type: image.mimeType!,
+                size: image.fileSize!,
+                uri: image.uri,
+            }
+        });
+
+        // Return uploaded file ID to store in the user preference object
+        return uploadedFile.$id;
+
+    } catch (error) {
+        console.error("Upload error:", error);
+        throw error; // Re-throw to handle it in the form
+    }
+}
+
+/**
+ * Set the profile picture for the current user.
+ * @param image 
+ * @returns string
+ */
+export async function setProfilePicture(image: ImagePickerAsset) {
+
+    try {
+        const profilePictureId = await uploadProfilePicture({image});
+        
+        await account.updatePrefs({
+            prefs: {
+                "profilePictureId": profilePictureId
+            }
+        });
+
+        const imageUrl = storage.getFileView({ bucketId: validatedConfig.profilePicBucketId, fileId: profilePictureId});
+
+        return imageUrl;
+    } catch (error) {
+        Alert.alert("Upload Error", "An error occurred while uploading the profile picture. Please try again.");
+        console.log("Error uploading profile picture:", error);
+    }
+}
+
+/**
+ * Remove the profile picture for the current user.
+ */
+export async function removeProfilePicture() {
+
+    try {
+
+        // Delete the value of the profile picture ID stored in user preferences
+        await account.updatePrefs({
+            prefs: {
+                "profilePictureId": null
+            }
+        });
+        
+    } catch (error) {
+        console.log("Error removing profile picture:", error);
+    }
+} 
 
 // ----------------------------------------------------------------------------------------
 

@@ -1394,3 +1394,33 @@ ___ ____    _  _ ____ _  _ ____ ___  ____ ____ ____    ____ _  _ ___     ____ _ 
 Added pull-to-refresh action both in 'index.tsx' (homepage) and 'explore.tsx' where users can refresh those pages for possibly new/updated properties.
 
 ___________________________
+
+------------------------------------------------------------------------------------------
+___  ____ ____ ____ _ _    ____    _ _  _ ____ ____ ____    _  _ ___  _    ____ ____ ___  
+|__] |__/ |  | |___ | |    |___    | |\/| |__| | __ |___    |  | |__] |    |  | |__| |  \ 
+|    |  \ |__| |    | |___ |___    | |  | |  | |__] |___    |__| |    |___ |__| |  | |__/ 
+                                                                                          
+------------------------------------------------------------------------------------------
+
+Created the 'ProfileImageButton.tsx' component for handling new profile picture upload.  
+
+----------
+
+Added 'uploadProfilePicture', 'setProfilePicture', and 'removeProfilePicture' functions in 'appwrite.ts'.
+
+----------
+
+Profile picture upload will only be simulated since Appwrite only allows 1 storage bucket to be created on a free tier.
+
+Created placeholder for Appwrite storage bucket ID to store profile pictures both in '.env.local' and '.env.local.example'.
+
+----------
+
+Reference:
+
+https://www.youtube.com/watch?v=uX5E_QFJubU [ToThePointCode] (Image Upload in React Native | Expo App)
+
+https://appwrite.io/docs/references/cloud/client-react-native/account#updatePrefs
+
+___________________________
+

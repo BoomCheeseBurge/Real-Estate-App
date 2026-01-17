@@ -1,16 +1,17 @@
+import ProfilePicture from '@/components/ProfilePicture';
 import { settings } from '@/constants/data';
 import icons from '@/constants/icons';
 import { logout } from '@/lib/appwrite';
 import { useGlobalContext } from '@/lib/global-provider';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import { Alert, Image, ImageSourcePropType, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, GestureResponderEvent, Image, ImageSourcePropType, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface SettingsItemProps {
     icon: ImageSourcePropType;
     label: string;
-    onPress?: (path: string) => void;
+    onPress?: (event: GestureResponderEvent) => void;
     textStyle?: string;
     showArrow?: boolean;
 }
@@ -82,24 +83,7 @@ const Profile = () => {
                 </View>
 
                 {/* Profile Content */}
-                <View className='flex-row justify-center flex mt-5'>
-                    {/* AVATAR Section */}
-                    <View className='flex flex-col items-center relative mt-5'>
-                        {/* Avatar Image */}
-                        <Image source={{ uri: user?.avatar }} className='size-44 relative rounded-full'/>
-
-                        {/* Avatar Edit */}
-                        <TouchableOpacity className='absolute bottom-11 right-2'>
-                            <Image source={icons.edit} className='size-9'/>
-                        </TouchableOpacity>
-
-                        {/* Display Name */}
-                        <Text className='text-2xl font-rubik-bold mt-2'>
-                            {user?.name}
-                        </Text>
-                    </View>
-
-                </View>
+                <ProfilePicture user={user} refetch={refetch} />
 
                 {/* SETTINGS Section */}
                 <View className='flex flex-col mt-10'>
