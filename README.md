@@ -66,6 +66,8 @@
 
 👉 **Upload Property Form**: Agent-role based users can upload new properties through this form accessed from the middle of the bottom navigation bar. 
 
+👉 **Pull-to-Refresh Displayed Properties**: Pull gesture from the very top of the screen downwards to refresh displayed properties in the homepage and explore pages.
+
 and many more, including code architecture and reusability
 
 ## <a name="quick-start">🤳 Quick Start</a>
