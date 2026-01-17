@@ -7,14 +7,38 @@ import { useAppwrite } from "@/hook/useAppwrite";
 import { getLatestProperties, getProperties } from "@/lib/appwrite";
 import { useGlobalContext } from "@/lib/global-provider";
 import { router } from "expo-router";
-import { useEffect, useMemo } from "react";
-import { ActivityIndicator, FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import { useEffect, useMemo, useState } from "react";
+import { ActivityIndicator, FlatList, Image, RefreshControl, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
 
     // Global user state
     const { user, filters } = useGlobalContext();
+
+    // Track the refreshing status
+    const [refreshing, setRefreshing] = useState(false);
+
+    // Handle pull-to-refresh action
+    const onRefresh = async () => {
+        setRefreshing(true);
+        
+        // Refetch both latest properties and the filtered list
+        refetch({
+            // filter: params.filter!,
+            filter: activeFilters!,
+            minPrice: filters.minPrice,
+            maxPrice: filters.maxPrice,
+            minBuilding: filters.minBuilding,
+            maxBuilding: filters.maxBuilding,
+            bedroomCount: filters.bedroomCount,
+            bathroomCount: filters.bathroomCount,
+            query: filters.query!,
+            limit: 6
+        });
+        
+        setRefreshing(false);
+    };
 
     // Derive activeFilters ONLY from the global filters state
     const activeFilters = useMemo(() => {
@@ -98,6 +122,14 @@ export default function Index() {
                 contentContainerClassName="pb-32"
                 columnWrapperClassName="flex gap-5 px-5"
                 showsVerticalScrollIndicator={false}
+                refreshControl={
+                    <RefreshControl 
+                        refreshing={refreshing} 
+                        onRefresh={onRefresh} 
+                        colors={["#0061FF"]} // Android spinner color
+                        tintColor="#0061FF"   // iOS spinner color
+                    />
+                }
                 ListEmptyComponent={
                     loading ? (
                         <ActivityIndicator size="large" className="text-primary-300 mt-5"/>
