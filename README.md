@@ -135,7 +135,7 @@ Make sure you have the following installed on your machine:
         - 'galleries' table ( Type: One-way, Column key: gallery, Relation: One to many, On deleting a row: Cascade )
       - 'reviews' table
         - 'properties' table ( Type: Two-way, Column key: property, Column key: reviews, Relation: Many to one, On deleting a row: Cascade )
-   7. Create a bucket storage.
+   7. Create a bucket storage for storing property images.
       - Go to the 'Storage' section in the AppWrite console
         - Click on the 'Create bucket' button
         - Name it any way you want (perhaps a suggested one can be 'property_images')
@@ -149,6 +149,8 @@ To test uploading a property using your own AppWrite account, don't forget to ad
 > Also, note that 'galleries' table and its relationship column in the 'properties' table should be deleted in the future since it is currently used for retrieving pre-populated property images.
 > In the future, a new column storing an array of property image IDs from the created AppWrite bucket should be stored instead.
 
+Another bucket storage for storing profile images should have been created. However, since AppWrite only allows one bucket storage to be created in a free tier, profile images are only simulated but the necessary code is already provided.
+
 Duplicate `.env.local.example` and rename into `.env.local`. Next, fill in the necessary information within `.env.local` in the root of your project and add the following content:
 
 ```env
@@ -161,6 +163,8 @@ EXPO_PUBLIC_APPWRITE_REVIEWS_TABLE_ID=
 EXPO_PUBLIC_APPWRITE_PROPERTIES_TABLE_ID=
 EXPO_PUBLIC_APPWRITE_ADMINS_TEAM_ID=
 EXPO_PUBLIC_APPWRITE_AGENTS_TEAM_ID=
+EXPO_PUBLIC_APPWRITE_PROPERTY_BUCKET_ID=
+EXPO_PUBLIC_APPWRITE_PROFILE_PIC_BUCKET_ID=
 ```
 
 Replace the values with your actual Appwrite credentials. You can obtain these credentials by signing up & creating a new project on the [**Appwrite Dashboard**](https://jsm.dev/rn25-appwrite).
@@ -208,8 +212,8 @@ Plans for the future are to implement the following features:
 
 - [x] Create 'Agent' and 'Admin' roles using the Teams feature provided by Appwrite
 - [x] Add an admin-only view dashboard
-- [ ] Create a form for users to sign-up as an agent
-- [ ] Enable agent user to upload and view their properties
+- [x] Create a form for users to sign-up as an agent
+- [x] Enable agent user to upload and view their properties
 - [ ] Implement purchase/booking property system based on buy/rent
 - [ ] Implement like system
 - [ ] Implement comment system (maybe with like system too)
