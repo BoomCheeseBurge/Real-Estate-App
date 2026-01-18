@@ -68,6 +68,8 @@
 
 👉 **Pull-to-Refresh Displayed Properties**: Pull gesture from the very top of the screen downwards to refresh displayed properties in the homepage and explore pages.
 
+👉 **Google Maps API**: Select where a property is located at in the form using Google Maps API. Search is not functional but requires a billing account so it doesn't work out-of-the-box.
+
 and many more, including code architecture and reusability
 
 ## <a name="quick-start">🤳 Quick Start</a>
@@ -128,6 +130,8 @@ Make sure you have the following installed on your machine:
         - 'facilities' ( Type: Enum, Elements: [Laundry, Car Parking, Gym, Wi-fi, Pet-friendly, Sports Center, Cutlery, Swimming Pool], Array )
         - 'image' ( Type: URL, Required )
         - 'images' ( Type: String, Size: 36, Null )
+        - 'latitude' ( Type: Float, Min: -90, Max: 90, Null )
+        - 'longitude' ( Type: Float, Min: -180, Max: 180, Null )
         - 'geolocation' ( Type: String, Size: 5000, Required )
    6. Create the following relationships.
       - 'properties' table
@@ -165,6 +169,7 @@ EXPO_PUBLIC_APPWRITE_ADMINS_TEAM_ID=
 EXPO_PUBLIC_APPWRITE_AGENTS_TEAM_ID=
 EXPO_PUBLIC_APPWRITE_PROPERTY_BUCKET_ID=
 EXPO_PUBLIC_APPWRITE_PROFILE_PIC_BUCKET_ID=
+EXPO_PUBLIC_GOOGLE_MAPS_API_KEY=
 ```
 
 Replace the values with your actual Appwrite credentials. You can obtain these credentials by signing up & creating a new project on the [**Appwrite Dashboard**](https://jsm.dev/rn25-appwrite).
