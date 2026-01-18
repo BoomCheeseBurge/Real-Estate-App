@@ -94,8 +94,8 @@ Make sure you have the following installed on your machine:
 2. **Set Up Environment Variables**
 
    1. Create a new project in the [AppWrite Console](https://cloud.appwrite.io/console/)
-   2. Setup the Google OAuth2 authentication by following the [documentation link](https://appwrite.io/docs/products/auth/oauth2)
-   3. Replace PROJECT_ID in the app.json file after Google OAuth2 has been setup:
+   2. Setup the Google OAuth2 authentication by following the documentation [here](https://appwrite.io/docs/products/auth/oauth2)
+   3. Replace <PROJECT_ID> in the app.json file after Google OAuth2 has been setup:
    ```
    {
      "expo": {
@@ -103,7 +103,7 @@ Make sure you have the following installed on your machine:
      }
    }
    ```
-   4. Create a new database (Ex: development)
+   4. Create a new database in your Appwrite console (Ex: 'development' or 'real-estate-db')
    5. Create the following tables along with their respective attributes:
       - 'agents' table
         - 'name' ( Type: String, Size: 500, Required )
