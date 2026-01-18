@@ -1424,3 +1424,169 @@ https://appwrite.io/docs/references/cloud/client-react-native/account#updatePref
 
 ___________________________
 
+----------------------------------------------------------------------------------------
+___  ____ ____ ___  ____ ____ ___ _   _    ____ ___  ___  ____ ____ ____ ____ 
+|__] |__/ |  | |__] |___ |__/  |   \_/     |__| |  \ |  \ |__/ |___ [__  [__  
+|    |  \ |__| |    |___ |  \  |    |      |  | |__/ |__/ |  \ |___ ___] ___] 
+                                                                              
+_ _ _ _ ___ _  _    ____ ____ ____ ____ _    ____    _  _ ____ ___  ____    ____ ___  _ 
+| | | |  |  |__|    | __ |  | |  | | __ |    |___    |\/| |__| |__] [__     |__| |__] | 
+|_|_| |  |  |  |    |__] |__| |__| |__] |___ |___    |  | |  | |    ___]    |  | |    | 
+                                                                                        
+----------------------------------------------------------------------------------------
+
+[ Setting up Google Maps API ]
+
+- Go to the following link:
+
+https://console.cloud.google.com/apis/dashboard
+
+Use the Google Cloud Project that was created before for Google OAuth
+
+- Search for "android map sdk" in the search bar
+
+- Click on Maps SDK for Android and enable it
+
+https://console.cloud.google.com/marketplace/product/google/maps-android-backend.googleapis.com?q=search&referrer=search&project=
+
+Ignore the billing setup and go back to the page above
+
+- Search for "places api" in the search bar
+
+- Click on "Places API" and enable it
+
+https://console.cloud.google.com/marketplace/product/google/places-backend.googleapis.com?q=search&referrer=search&project=
+
+Again, ignore the billing setup and go back to the page above
+
+----------
+
+- Go to the sidebar menu
+
+- Hover over "APIs & Services" and click on "Credentials"
+
+- Click on "Create credentials" and choose "API key"
+
+- Name it "Google Maps API"
+
+- For learning purposes, the application restrictions can be set to either Android or IOS depending on the device development
+
+- Click on "Create"
+
+----------
+
+Copy the API key and store it in app.json file under 'android' with the key 'config'.
+
+----------
+
+Installed RN maps with this command:
+
+npx expo install react-native-maps
+
+Documentation:
+--------------
+
+https://docs.expo.dev/versions/latest/sdk/map-view/
+
+https://github.com/react-native-maps/react-native-maps/blob/HEAD/docs/mapview.md
+
+----------
+
+Created a new component called 'GoogleMapsView' to display Google Maps on the form.
+
+----------
+
+Installed Expo Location package with the following command:
+
+npx expo install expo-location
+
+The purpose of this library is to request the user's permission the first time they open the app to find their location.
+
+Documentation:
+--------------
+
+https://docs.expo.dev/versions/latest/sdk/location/
+
+----------
+
+Added Expo Location configuration in 'app.json' file.
+
+----------
+
+Added user location provider to 'upload' layout file.
+
+----------
+
+Added 'latitude' column of type 'float' to the 'properties' table in AppWrite database with min: -90 and max: 90.
+
+Added 'longitude' column of type 'float' to the 'properties' table in AppWrite database with min: -180 and max: 180.
+
+----------
+
+Fixed search filter for selected property categories.
+
+----------
+
+Created a new component called 'GoogleMapsSearch' for searching locations on the map.
+
+Reference:
+----------
+
+https://developers.google.com/maps/documentation/places/web-service/legacy/search-find-place#maps_http_places_findplacefromtext_mca-txt
+
+[ For Places API (New) which the next-gen version, the following documentation can be used ]
+
+https://developers.google.com/maps/documentation/places/web-service/text-search#find-places-one-type
+
+https://developers.google.com/maps/documentation/places/web-service/reference/rest/v1/places#LatLng
+
+However, this API requires a billing account, hence, the legacy version is used instead.
+
+----------
+
+Location can be pinpointed by touching a location on the map view. 
+
+----------
+
+Reference:
+----------
+
+https://www.youtube.com/watch?v=BaYzZyWm8EI [TubeGuruji] (React Native Tutorial For Beginners: React Native, Expo, Google Map, Google Place api)
+
+Alternative (use Expo's new map library):
+-----------------------------------------
+
+https://www.youtube.com/watch?v=jDCuaIQ9vd0 [Expo] (Expo Maps Deep Dive | Learn how to build with the new expo-maps library)
+
+[this library was still in early release at the time of this project so it was better to just go with RN's map library instead]
+
+For more advanced lessons on RN + Google Maps API:
+--------------------------------------------------
+
+https://www.youtube.com/playlist?list=PLeIJUF3PiXDfOoCWgD4uibjkGQMT7a78v [CodingWithZain] (React Native Google Maps | Android & iOS | Tutorial)
+
+----------
+
+Unused code for Property Location in the upload property form.
+
+<View>
+    <Text className="text-black-300 text-xl font-rubik-bold">
+        Location
+    </Text>
+
+    <View className="flex flex-row items-center justify-start mt-4 gap-2">
+        <Image source={icons.location} className="w-7 h-7" />
+
+        <Text className="text-black-200 text-sm font-rubik-medium">
+            {/* property address placeholder for now */}
+            123 Property Street, City 1
+        </Text>
+    </View>
+
+    <Image
+        source={images.map}
+        className="h-52 w-full mt-5 rounded-xl"
+    />
+</View>
+
+___________________________

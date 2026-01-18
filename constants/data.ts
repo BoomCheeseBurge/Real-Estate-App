@@ -164,11 +164,30 @@ export const gallery = [
   },
 ];
 
+// -----------------------------------------------------
+// Search Filter Options
+
+export const searchFilter = {
+  minPrice: 1000,
+  maxPrice: 10000,
+  minBuilding: 500,
+  maxBuilding: 5000,
+  defaultBedroom: 1,
+  defaultBathroom: 1,
+  defaultCategories: ['All'],
+} as const; // "as const" makes the properties read-only
+
+// -----------------------------------------------------
+// Upload Property Form
+
 export const PERIODS = [
     { label: "Monthly", value: "Monthly" },
     { label: "Yearly", value: "Yearly" },
     { label: "One-time", value: "One-time" },
 ];
+
+// -----------------------------------------------------
+// Admin Dashboard
 
 export const USER_ROLES = {
   ADMIN: 'admin',

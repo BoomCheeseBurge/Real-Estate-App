@@ -11,6 +11,8 @@ export interface FormData {
 	areaSize: string;
     images: ImagePickerAsset[];
     facilities: string[];
+    latitude: number;
+    longitude: number;
     price: string;
     paymentPeriod: string;
     terms: boolean;
@@ -36,6 +38,8 @@ const initialFormData: FormData = {
     areaSize: "",
     images: [],
     facilities: [],
+    latitude: 0,
+    longitude: 0,
     price: "",
     paymentPeriod: "Monthly",
     terms: false,
@@ -47,19 +51,7 @@ export const FormProvider = ({ children }: { children: React.ReactNode }) => {
 
     const [page, setPage] = useState(1);
 
-    const [formData, setFormData] = useState<FormData>({
-        propertyName: "",
-        propertyType: "",
-        description: "",
-        beds: "",
-        bathrooms: "",
-        areaSize: "",
-        images: [],
-        facilities: [],
-        price: "",
-        paymentPeriod: "Monthly", // Default value
-        terms: false,
-    });
+    const [formData, setFormData] = useState<FormData>(initialFormData);
 
     const updateFormData = (newData: Partial<FormData>) => {
         setFormData((prev) => ({ ...prev, ...newData }));

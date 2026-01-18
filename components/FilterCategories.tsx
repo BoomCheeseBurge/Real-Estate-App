@@ -20,12 +20,12 @@ const FilterCategories = ({ selectedCategories, onSelectCategories }: FilterCate
 
         let newCategories = [...selectedCategories];
 
+        // Case A: User selected 'All' -> Reset to just ['All']
         if (category === ALL_CATEGORY) {
-            // Case A: User selected 'All' -> Reset to just ['All']
             newCategories = [ALL_CATEGORY];
 
+        // Case B: Category is already selected -> Remove it
         } else if (isSelected(category)) {
-            // Case B: Category is already selected -> Remove it
             newCategories = newCategories.filter(cat => cat !== category && cat !== ALL_CATEGORY);
             
             // If we removed the last category (and it wasn't 'All'), default back to ['All']
@@ -33,8 +33,8 @@ const FilterCategories = ({ selectedCategories, onSelectCategories }: FilterCate
                 newCategories.push(ALL_CATEGORY);
             }
 
+        // Case C: Category is NOT selected -> Add it
         } else {
-            // Case C: Category is NOT selected -> Add it
             // Remove 'All' if it's currently present before adding the new category
             newCategories = newCategories.filter(cat => cat !== ALL_CATEGORY);
             newCategories.push(category);
@@ -48,10 +48,10 @@ const FilterCategories = ({ selectedCategories, onSelectCategories }: FilterCate
             {categories.map((item, index) => (
                 <TouchableOpacity 
                     key={index} 
-                    className={`w-fit px-8 py-1.5 mr-8 mb-2.5 rounded-full ${isSelected(item.category) ? 'bg-primary-300' : 'bg-primary-100 border border-primary-200'}`} 
-                    onPress={() => handleCategoryPress(item.category)}
+                    className={`w-fit px-8 py-1.5 mr-8 mb-2.5 rounded-full ${isSelected(item.value) ? 'bg-primary-300' : 'bg-primary-100 border border-primary-200'}`} 
+                    onPress={() => handleCategoryPress(item.value)}
                 >
-                    <Text className={`text-sm ${isSelected(item.category) ? 'text-white font-rubik-bold mt-0.5' : 'text-black-300 font-rubik'}`}>
+                    <Text className={`text-sm ${isSelected(item.value) ? 'text-white font-rubik-bold mt-0.5' : 'text-black-300 font-rubik'}`}>
                         {item.label}
                     </Text>
                 </TouchableOpacity>

@@ -20,12 +20,11 @@ const DEFAULT_BATHROOM = 1;
 const DEFAULT_CATEGORIES = ['All'];
 
 const Search = () => {
-
     
     // Get the parameters from the path
     const params = useLocalSearchParams<{query?: string;}>();
 
-    // ⭐ NEW: Get filters and setter from global context
+    // Get filters and setter from global context
     const { filters, setFilters } = useGlobalContext();
 
     // Set search from global filters, not URL params

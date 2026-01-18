@@ -1,10 +1,11 @@
 import { useFormContext } from "@/app/contexts/FormContext";
 import { categories } from "@/constants/data";
 import icons from "@/constants/icons";
-import images from "@/constants/images";
 import { router } from "expo-router";
 import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Dropdown from "../Dropdown";
+import GoogleMapsSearch from "../GoogleMapsSearch";
+import GoogleMapsView from "../GoogleMapsView";
 import ImagePickerButton from "../ImagePickerButton";
 
 export default function PropertyForm() {
@@ -44,7 +45,7 @@ export default function PropertyForm() {
 
             {/* Property Images */}
             <View className="flex-col flex">
-                <Text className="text-sm font-rubik-bold mb-2">
+                <Text className="text-sm font-rubik-medium text-black-300 mb-2">
                     Upload Property Images
                 </Text>
 
@@ -100,24 +101,26 @@ export default function PropertyForm() {
 
             {/* Location Section */}
             <View>
-                <Text className="text-black-300 text-xl font-rubik-bold">
+                <Text className="text-sm font-rubik-medium text-black-300 mb-2">
                     Location
                 </Text>
 
                 <View className="flex flex-row items-center justify-start mt-4 gap-2">
                     <Image source={icons.location} className="w-7 h-7" />
 
-                    <Text className="text-black-200 text-sm font-rubik-medium">
-                        {/* property address placeholder for now */}
-                        123 Property Street, City 1
-                    </Text>
+                    <GoogleMapsSearch />
                 </View>
 
-                <Image
+                <View className="self-center mt-4">
+                    <GoogleMapsView />
+                </View>
+
+                {/* <Image
                     source={images.map}
                     className="h-52 w-full mt-5 rounded-xl"
-                />
+                /> */}
             </View>
+
         </ScrollView>
     );
 }

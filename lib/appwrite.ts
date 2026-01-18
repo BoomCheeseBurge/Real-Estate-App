@@ -408,6 +408,8 @@ export async function insertNewProperty(formData: FormData) {
             image: formData.images[0]?.uri || "", // uri - required
             agent: user.$id!, // current user ID - required
             images: uploadedImageIds, // array of property image AppWrite IDs - required
+            latitude: formData.latitude, // number - required
+            longitude: formData.longitude, // number - required
             geolocation: "Country", // string - required
         };
 
