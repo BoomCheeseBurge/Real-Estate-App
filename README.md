@@ -29,6 +29,7 @@
 3. 🤳 [Quick Start](#quick-start)
 4. ✍️ [AppWrite Database Seeding](#db-seeding)
 5. ⌚ [To Be Added](#to-be-added)
+6. 📋 [Additional Info](#additional-info)
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 
@@ -222,3 +223,55 @@ Plans for the future are to implement the following features:
 - [ ] Implement purchase/booking property system based on buy/rent
 - [ ] Implement like system
 - [ ] Implement comment system (maybe with like system too)
+
+## <a name="additional-info">📋 Additional Info</a>
+
+### Project Structure Overview
+
+- <ins>app</ins>
+
+  - (root)
+
+    - (tabs)
+
+      - test [for testing purposes, can be deleted if needed]
+
+    - modal [unused modal component]
+
+    - properties [property detail page]
+
+  - contexts
+
+  - global.css
+
+- <ins>assets</ins>
+
+  - fonts
+
+  - icons
+
+  - images
+
+- <ins>components</ins>
+
+- <ins>constants</ins>
+
+- <ins>hook</ins>
+
+    - useAppwrite [custom hook especially for fetching data from Appwrite providing loading state and refetch function]
+
+- <ins>lib</ins>
+
+  - appwrite [appwrite configurations and related user-defined functions]
+
+  - data [dummy data for seeding]
+
+  - global-provider [from React Native]
+
+  - seed [code to seed Appwrite DB]
+
+- <ins>image.d.ts</ins> [allowed image file type to be processed]
+
+- <ins>tailwind.config.js</ins> [configure Tailwind]
+
+- <ins>app.json</ins> [configure the app behaviour]
